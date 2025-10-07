@@ -69,34 +69,39 @@
                   );
                 }
               ]
-              ++ (lib.optionals (cfg.brightnessDevice != null) [
-                {
-                  timeout = 1;
-                  on-resume = builtins.toString (
-                    pkgs.writeShellScript "undim" ''
-                      brightnessctl -d ${lib.escapeShellArg cfg.brightnessDevice} -r
-                    ''
-                  );
-                }
-                {
-                  timeout = 10;
-                  on-timeout = builtins.toString (
-                    pkgs.writeShellScript "manual-lock-dim" ''
-                      save="$(brightnessctl -m | awk -F, '{if ($4 != "10%") {print "-s"; exit}}')"
-                      pidof hyprlock && brightnessctl $save set 10%
-                    ''
-                  );
-                }
-                {
-                  timeout = 60;
-                  on-timeout = builtins.toString (
-                    pkgs.writeShellScript "auto-dim" ''
-                      save="$(brightnessctl -m | awk -F, '{if ($4 != "10%") {print "-s"; exit}}')"
-                      brightnessctl $save set 10%
-                    ''
-                  );
-                }
-              ]);
+              ++ (lib.optionals (cfg.brightnessDevice != null) (
+                let
+                  dev = lib.escapeShellArg cfg.brightnessDevice;
+                in
+                [
+                  {
+                    timeout = 1;
+                    on-resume = builtins.toString (
+                      pkgs.writeShellScript "undim" ''
+                        brightnessctl -d ${dev} -r
+                      ''
+                    );
+                  }
+                  {
+                    timeout = 10;
+                    on-timeout = builtins.toString (
+                      pkgs.writeShellScript "manual-lock-dim" ''
+                        save="$(brightnessctl -d ${dev} -m | awk -F, '{if ($4 != "10%") {print "-s"; exit}}')"
+                        pidof hyprlock && brightnessctl -d ${dev} $save set 10%
+                      ''
+                    );
+                  }
+                  {
+                    timeout = 60;
+                    on-timeout = builtins.toString (
+                      pkgs.writeShellScript "auto-dim" ''
+                        save="$(brightnessctl -d ${dev} -m | awk -F, '{if ($4 != "10%") {print "-s"; exit}}')"
+                        brightnessctl -d ${dev} $save set 10%
+                      ''
+                    );
+                  }
+                ]
+              ));
             };
           };
       };

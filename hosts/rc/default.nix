@@ -1,4 +1,9 @@
-{ modulesPath, sec, user, ... }:
+{
+  modulesPath,
+  sec,
+  user,
+  ...
+}:
 {
   imports = [
     sec.nixosModules.dot
