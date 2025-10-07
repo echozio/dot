@@ -12,6 +12,8 @@ user_pref("devtools.chrome.enabled", true);
 user_pref("devtools.debugger.remote-enabled", true);
 
 user_pref("browser.sessionstore.resume_from_crash", true);
+user_pref("browser.tabs.insertAfterCurrent", true);
+user_pref("browser.tabs.insertAfterCurrentExceptPinned", true);
 user_pref("general.aboutConfig.enable", true);
 user_pref("middlemouse.paste", false);
 user_pref("sidebar.animation.enabled", false);
