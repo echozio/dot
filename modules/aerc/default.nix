@@ -64,12 +64,17 @@
               mouse-enabled = true;
               dirlist-tree = true;
               fuzzy-complete = true;
+              sort = "-r date";
+              dirlist-right = ''{{if .Unread}}{{humanReadable .Unread}} {{end}}{{.Style (humanReadable .Exists) "dim"}}'';
             };
 
             openers = {
               "text/html" = "firefox";
               "application/pdf" = "firefox";
             };
+          };
+          stylesets = {
+            default.user."dim.dim" = true;
           };
         };
       };
