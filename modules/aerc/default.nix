@@ -38,6 +38,15 @@
                         ]
                       );
                   signature-cmd = lib.mkIf (config.signature.command != null) config.signature.command;
+                  enable-folders-sort = true;
+                  folders-sort = [
+                    "INBOX"
+                    "Important"
+                    "Archive"
+                    "Drafts"
+                    "Sent"
+                    "Spam"
+                  ];
                 };
               };
             }

@@ -18,8 +18,8 @@
 
       # Actions
       messages = {
-        d = ":read<Enter>,:move Trash<Enter>";
         a = ":read<Enter>,:archive flat<Enter>";
+        d = ":read<Enter>,:move Spam<Enter>";
         f = ":move Important<Enter>";
 
         m = ":compose<Enter>";
