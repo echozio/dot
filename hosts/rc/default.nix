@@ -1,4 +1,4 @@
-{ modulesPath, sec, ... }:
+{ modulesPath, sec, user, ... }:
 {
   imports = [
     sec.nixosModules.dot
@@ -28,4 +28,6 @@
     enableAllFirmware = true;
     cpu.intel.updateMicrocode = true;
   };
+
+  home-manager.users.${user}.services.hypridle.brightnessDevice = "intel_backlight";
 }

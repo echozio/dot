@@ -28,6 +28,7 @@
         inner_color = "rgba(0,0,0,0.2)";
         check_color = "rgba(0,0,255,0.2)";
         fail_color = "rgba(255,0,0,0.2)";
+        fail_text = "";
         outline_thickness = 0;
         placeholder_text = "";
         shadow_passes = 0;
