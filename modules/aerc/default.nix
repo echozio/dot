@@ -23,9 +23,25 @@
     home-manager.users.${user} = {
       options.accounts.email.accounts = lib.mkOption {
         type = lib.types.attrsOf (
-          lib.types.submodule {
-            config.aerc.enable = true;
-          }
+          lib.types.submodule (
+            { config, ... }:
+            {
+              config.aerc = {
+                enable = true;
+                extraAccounts = lib.mkIf (config.signature.showSignature == "append") {
+                  signature-file =
+                    builtins.toFile (lib.strings.sanitizeDerivationName "${config.address}-signature")
+                      (
+                        lib.concatStrings [
+                          config.signature.delimiter
+                          config.signature.text
+                        ]
+                      );
+                  signature-cmd = lib.mkIf (config.signature.command != null) config.signature.command;
+                };
+              };
+            }
+          )
         );
       };
 
