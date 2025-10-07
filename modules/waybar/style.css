@@ -1,0 +1,40 @@
+* {
+  border: none;
+  border-radius: 0;
+  font-family: JetBrains Mono Nerd Font Propo;
+  font-size: 12pt;
+}
+
+window#waybar {
+  border: none;
+  color: #fff;
+  background: rgba(0,0,0,0.2);
+}
+
+.modules-right > widget > *, #window {
+  padding: 0 10px;
+}
+
+.modules-center > widget > * {
+  padding: 0 10px;
+}
+
+#tray {
+  padding: 0;
+  padding-right: 10px;
+}
+
+#workspaces button {
+  color: #fff;
+  transition: box-shadow 0.1s linear;
+}
+
+#workspaces button:hover {
+  background: inherit;
+  box-shadow: inset 0px 2px #777;
+  text-shadow: inherit;
+}
+
+#workspaces button.active {
+  box-shadow: inset 0px 2px #fff;
+}
