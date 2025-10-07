@@ -46,6 +46,7 @@
         mode = "0700";
       })
       [
+        "doc"
         "mus"
         "pic"
         "vid"
