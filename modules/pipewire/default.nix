@@ -1,3 +1,4 @@
+{ pkgs, user, ... }:
 {
   security.rtkit.enable = true;
   services.pipewire = {
@@ -8,4 +9,9 @@
     jack.enable = true;
     wireplumber.enable = true;
   };
+
+  home-manager.users.${user}.home.packages = [
+    pkgs.pulsemixer
+    pkgs.helvum
+  ];
 }
