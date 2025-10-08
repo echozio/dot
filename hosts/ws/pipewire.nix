@@ -4,7 +4,31 @@
 }:
 {
   services.pipewire.wireplumber.extraConfig = {
+    general = {
+      "wireplumber.settings" = {
+        "device.restore-profile" = false;
+        "device.restore-routes" = false;
+        "device.routes.default-sink-volume" = 1.0;
+        "device.routes.default-source-volume" = 1.0;
+      };
+
+      "wireplumber.profiles".main = {
+        "hooks.device.profile.state" = "disabled";
+        "hooks.device.routes.state" = "disabled";
+        "hooks.default-nodes.state" = "disabled";
+        "hooks.stream.state" = "disabled";
+      };
+    };
+
     devices."monitor.alsa.rules" = [
+      {
+        matches = lib.singleton {
+          "device.description" = "DENON DJ MC7000";
+        };
+        actions.update-props = {
+          "device.profile" = "pro-audio";
+        };
+      }
       {
         matches = lib.singleton {
           "alsa.card_name" = "Xonar STX";
@@ -13,8 +37,11 @@
         actions.update-props = {
           "node.description" = "Desktop";
           "node.nick" = "Desktop";
+          "priority.session" = 8000;
+          "priority.driver" = 8000;
         };
       }
+
       {
         matches = lib.singleton {
           "alsa.card_name" = "Xonar STX";
@@ -30,6 +57,8 @@
         actions.update-props = {
           "node.description" = "Voice";
           "node.nick" = "Voice";
+          "priority.session" = 9000;
+          "priority.driver" = 9000;
         };
       }
       {
@@ -37,7 +66,7 @@
           "alsa.card_name" = "RODE NT-USB";
           "media.class" = "Audio/Sink";
         };
-        action.update-props."node.disabled" = true;
+        actions.update-props."node.disabled" = true;
       }
       {
         matches = lib.singleton {
@@ -67,6 +96,7 @@
       "wireplumber.profiles".main."custom.loopback" = "required";
     };
   };
+
   services.pipewire.wireplumber.extraScripts."loopback.lua" = ''
     masterOutput = LocalModule("libpipewire-module-loopback", [[
       audio.position = [ FL FR ]
@@ -78,6 +108,8 @@
         audio.rate = 44100
         audio.channels = 2
         audio.position = [ FL FR ]
+        priority.session = 6000
+        priority.driver = 6000
       }
       playback.props = {
         node.name = "playback.master"
@@ -100,6 +132,8 @@
         audio.rate = 44100
         audio.channels = 2
         audio.position = [ FL FR ]
+        priority.session = 7000
+        priority.driver = 7000
       }
       playback.props = {
         node.name = "playback.headphones"
