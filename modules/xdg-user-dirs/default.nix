@@ -24,6 +24,7 @@
       # some non-standard ones that should be there
       extraConfig = {
         XDG_GIT_DIR = "${tilde}/git";
+        XDG_ETC_DIR = "${tilde}/etc";
         XDG_TMP_DIR = "${tilde}/tmp";
         XDG_MNT_DIR = "${tilde}/mnt";
 
@@ -47,12 +48,13 @@
       })
       [
         "doc"
+        "dot"
+        "etc"
+        "git"
         "mus"
         "pic"
-        "vid"
-        "git"
-        "dot"
         "sec"
         "srv"
+        "vid"
       ];
 }
