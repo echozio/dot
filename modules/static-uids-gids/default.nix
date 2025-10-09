@@ -1,7 +1,10 @@
 {
   users = {
     users = {
-      dhcpcd.uid = 999;
+      dhcpcd = {
+        uid = 999;
+        group = "dhcpcd";
+      };
       flatpak.uid = 998;
       greeter.uid = 997;
       nscd.uid = 996;
