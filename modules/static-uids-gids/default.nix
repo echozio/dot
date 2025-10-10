@@ -11,6 +11,7 @@
       rtkit.uid = 995;
       sshd.uid = 994;
       systemd-oom.uid = 993;
+      nm-iodine.uid = 992;
     };
     groups = {
       dhcpcd.gid = 999;
