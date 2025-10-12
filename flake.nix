@@ -3,8 +3,7 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
 
     disko.url = "github:nix-community/disko/v1.12.0";
-    # home-manager.url = "github:nix-community/home-manager";
-    home-manager.url = "github:echozio/home-manager/ba334bed0838204abf3d3f2a54563039ebc018d0";
+    home-manager.url = "github:nix-community/home-manager";
     impermanence.url = "github:nix-community/impermanence";
     sops-nix.url = "github:Mic92/sops-nix";
     walker.url = "github:abenz1267/walker";
