@@ -72,6 +72,12 @@
               "text/html" = "firefox";
               "application/pdf" = "firefox";
             };
+
+            compose = {
+              focus-body = true;
+              edit-headers = true;
+              reply-to-self = false;
+            };
           };
           stylesets = {
             default.user."dim.dim" = true;
