@@ -1,0 +1,12 @@
+diff --git a/FunctionBar.c b/FunctionBar.c
+index 08500373..481b4cb6 100644
+--- a/FunctionBar.c
++++ b/FunctionBar.c
+@@ -18,7 +18,7 @@ in the source distribution for its full text.
+ #include "XUtils.h"
+
+
+-static const char* const FunctionBar_FKeys[] = {"F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", NULL};
++static const char* const FunctionBar_FKeys[] = {" h ", " S ", " / ", " \\ ", " t ", " < ", " ] ", " [ ", " k ", " q ", NULL};
+
+ static const char* const FunctionBar_FLabels[] = {"      ", "      ", "      ", "      ", "      ", "      ", "      ", "    ", "      ", "      ", NULL};
