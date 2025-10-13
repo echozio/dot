@@ -21,7 +21,7 @@
         a = ":read<Enter>,:archive flat<Enter>";
         d = ":read<Enter>,:move Spam<Enter>";
         f = ":move Important<Enter>";
-        "<space>" =  ":read -t<Enter>";
+        "<space>" = ":read -t<Enter>";
 
         e = ":envelope -h -s '%s: %s'<Enter>";
         E = ":pipe -m -s -- vi - -R -c 'set filetype=mail'<Enter>";
