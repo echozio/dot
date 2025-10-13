@@ -64,7 +64,7 @@
               mouse-enabled = true;
               dirlist-tree = true;
               fuzzy-complete = true;
-              sort = "-r date";
+              sort = "-r arrival";
               dirlist-right = ''{{if .Unread}}{{humanReadable .Unread}} {{end}}{{.Style (humanReadable .Exists) "dim"}}'';
             };
 

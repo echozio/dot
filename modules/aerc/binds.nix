@@ -21,6 +21,10 @@
         a = ":read<Enter>,:archive flat<Enter>";
         d = ":read<Enter>,:move Spam<Enter>";
         f = ":move Important<Enter>";
+        "<space>" =  ":read -t<Enter>";
+
+        e = ":envelope -h -s '%s: %s'<Enter>";
+        E = ":pipe -m -s -- vi - -R -c 'set filetype=mail'<Enter>";
 
         m = ":compose<Enter>";
         b = ":bounce<space>";
@@ -31,9 +35,12 @@
         F = ":forward<Enter>";
 
         v = ":mark -t<Enter>";
-        V = ":mark -v<Enter>";
-      };
 
+        V = ":mark -v<Enter>";
+        "<Esc>" = [ ":unmark -a<Enter>" ];
+      };
+    }
+    {
       # Navigation
       messages = {
         "<Enter>" = ":view<Enter>";
@@ -50,9 +57,9 @@
         G = ":select -1<Enter>";
         gg = ":select 0<Enter>";
 
+        H = ":collapse-folder<Enter>";
         J = ":next-folder<Enter>";
         K = ":prev-folder<Enter>";
-        H = ":collapse-folder<Enter>";
         L = ":expand-folder<Enter>";
 
         zz = ":align center<Enter>";
@@ -67,7 +74,7 @@
         n = ":next-result<Enter>";
         N = ":prev-result<Enter>";
 
-        "<Esc>" = ":clear<Enter>:unmark -a<Enter>";
+        "<Esc>" = [ ":clear<Enter>" ];
       };
 
       messages = {
@@ -80,8 +87,10 @@
 
         c = ":cf<space>";
 
-        s = ":split<Enter>";
+        s = ":hsplit<Enter>";
         S = ":vsplit<Enter>";
+        h = ":split -1<Enter>";
+        l = ":split +1<Enter>";
 
         "|" = ":pipe<space>";
         pl = ":patch list<Enter>";
@@ -99,7 +108,6 @@
       view = {
         "/" = ":toggle-key-passthrough<Enter>/";
         q = ":close<Enter>";
-        O = ":open<Enter>";
         o = ":open<Enter>";
         S = ":save<space>";
         "|" = ":pipe<space>";
