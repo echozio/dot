@@ -35,5 +35,15 @@
     cpu.intel.updateMicrocode = true;
   };
 
-  home-manager.users.${user}.services.hypridle.brightnessDevice = "intel_backlight";
+  home-manager.users.${user} = {
+    services.hypridle.brightnessDevice = "intel_backlight";
+    wayland.windowManager.hyprland.settings = {
+      device = [
+        {
+          name = "synps/2-synaptics-touchpad";
+          enabled = false;
+        }
+      ];
+    };
+  };
 }
