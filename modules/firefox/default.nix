@@ -18,6 +18,7 @@
 
   home-manager.users.${user} = {
     wayland.windowManager.hyprland.settings.bind = [ "$mod, W, exec, uwsm app -- firefox" ];
+    programs.zsh.shellAliases.ff = "firefox";
 
     programs.firefox = {
       enable = true;
