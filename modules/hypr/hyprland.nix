@@ -96,6 +96,11 @@
             "$mod,       P,      pseudo,"
             "$mod,       O,      togglesplit,"
 
+            "$mod, h, movefocus, l"
+            "$mod, j, movefocus, d"
+            "$mod, k, movefocus, u"
+            "$mod, l, movefocus, r"
+
             "$mod, 1, workspace, 1"
             "$mod, 2, workspace, 2"
             "$mod, 3, workspace, 3"
