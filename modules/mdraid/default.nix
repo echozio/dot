@@ -1,0 +1,3 @@
+{
+  boot.swraid.enable = true;
+}
