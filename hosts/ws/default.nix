@@ -1,4 +1,4 @@
-{ modulesPath, sec, ... }:
+{ modulesPath, sec, pkgs, nixpkgs-stable, ... }:
 {
   imports = [
     sec.nixosModules.dot
@@ -21,10 +21,12 @@
       "usbhid"
     ];
     kernelModules = [ "kvm-amd" ];
+    kernelPackages = nixpkgs-stable.legacyPackages.${pkgs.system}.linuxPackages_lqx;
   };
 
   hardware = {
     enableAllFirmware = true;
     cpu.amd.updateMicrocode = true;
+    amdgpu.initrd.enable = true;
   };
 }
