@@ -1,4 +1,4 @@
-{ user, ... }:
+{ pkgs, user, ... }:
 {
   virtualisation = {
     containers = {
@@ -9,9 +9,12 @@
     podman = {
       enable = true;
       dockerCompat = true;
+      dockerSocket.enable = true;
       defaultNetwork.settings.dns_enabled = true;
     };
   };
+
+  environment.systemPackages = [ pkgs.podman-compose ];
 
   users.users.${user}.extraGroups = [ "podman" ];
 }
