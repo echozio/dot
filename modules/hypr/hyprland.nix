@@ -83,6 +83,29 @@
             no_update_news = true;
           };
 
+          group = {
+            drag_into_group = 2;
+            merge_groups_on_drag = false;
+            "col.border_active" = "rgba(00000000) rgba(ffffffff) rgba(00000000) 45deg";
+            "col.border_inactive" = "rgba(00000000)";
+            "col.border_locked_active" = "rgba(00000000) rgba(ffffffff) rgba(00000000) 45deg";
+            "col.border_locked_inactive" = "rgba(00000000)";
+
+            groupbar = {
+              render_titles = false;
+              gaps_in = 1;
+              gaps_out = 5;
+              indicator_height = 4;
+              rounding = 2;
+              "col.active" = "rgba(ffffffff)";
+              "col.inactive" = "rgba(999999ff)";
+            };
+          };
+
+          binds = {
+            workspace_center_on = 1;
+          };
+
           "$mod" = lib.mkDefault "SUPER";
 
           bind = [
@@ -90,11 +113,10 @@
             "$mod SHIFT, Delete, exit,"
             "$mod,       F,      fullscreen,     0"
             "$mod SHIFT, F,      togglefloating,"
+            "$mod CTRL,  F,      pseudo,"
             "$mod,       G,      togglegroup,"
-            "$mod SHIFT, G,      lockgroups,"
-            "$mod,       Tab,    changegroupactive,"
-            "$mod,       P,      pseudo,"
-            "$mod,       O,      togglesplit,"
+            "$mod,       N,      changegroupactive,f"
+            "$mod,       P,      changegroupactive,b"
 
             "$mod, h, movefocus, l"
             "$mod, j, movefocus, d"
@@ -112,16 +134,16 @@
             "$mod, 9, workspace, 9"
             "$mod, 0, workspace, 10"
 
-            "$mod SHIFT, 1, movetoworkspace, 1"
-            "$mod SHIFT, 2, movetoworkspace, 2"
-            "$mod SHIFT, 3, movetoworkspace, 3"
-            "$mod SHIFT, 4, movetoworkspace, 4"
-            "$mod SHIFT, 5, movetoworkspace, 5"
-            "$mod SHIFT, 6, movetoworkspace, 6"
-            "$mod SHIFT, 7, movetoworkspace, 7"
-            "$mod SHIFT, 8, movetoworkspace, 8"
-            "$mod SHIFT, 9, movetoworkspace, 9"
-            "$mod SHIFT, 0, movetoworkspace, 10"
+            "$mod SHIFT, 1, movetoworkspacesilent, 1"
+            "$mod SHIFT, 2, movetoworkspacesilent, 2"
+            "$mod SHIFT, 3, movetoworkspacesilent, 3"
+            "$mod SHIFT, 4, movetoworkspacesilent, 4"
+            "$mod SHIFT, 5, movetoworkspacesilent, 5"
+            "$mod SHIFT, 6, movetoworkspacesilent, 6"
+            "$mod SHIFT, 7, movetoworkspacesilent, 7"
+            "$mod SHIFT, 8, movetoworkspacesilent, 8"
+            "$mod SHIFT, 9, movetoworkspacesilent, 9"
+            "$mod SHIFT, 0, movetoworkspacesilent, 10"
           ];
 
           bindm = [
@@ -132,7 +154,9 @@
           bindni = [ ", Alt_L, sendkeystate, , Alt_L, down, class:discord" ];
           bindnir = [ ", Alt_L, sendkeystate, , Alt_L, up, class:discord" ];
 
-          windowrule = [ "noblur, xwayland:1" ];
+          windowrule = [
+            "noblur, xwayland:1"
+          ];
         };
       };
 
