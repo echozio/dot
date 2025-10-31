@@ -28,6 +28,8 @@
           };
 
           programs.glirc.extraConfig = lib.mkBefore ''
+            notifications: yes
+
             key-bindings:
               * bind: "C-d"
                 action: scroll-down-small

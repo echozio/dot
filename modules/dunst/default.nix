@@ -1,4 +1,6 @@
 {
+  pkgs,
+
   user,
   ...
 }:
@@ -8,6 +10,8 @@
       "blur,notifications"
       "ignorezero,notifications"
     ];
+
+    home.packages = [ pkgs.libnotify ];
 
     services.dunst = {
       enable = true;
