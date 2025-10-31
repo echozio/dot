@@ -44,6 +44,10 @@
       promptInit = ''
         source ${pkgs.liquidprompt}/bin/liquidprompt
       '';
+
+      shellAliases = {
+        ls = "ls --color=auto --group-directories-first";
+      };
     };
 
     environment.etc."liquidpromptrc".source = ./liquidpromptrc;
