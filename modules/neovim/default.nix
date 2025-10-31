@@ -1,4 +1,8 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 {
   programs.neovim = {
     enable = true;
@@ -10,4 +14,8 @@
     withPython3 = lib.mkDefault false;
     withNodeJs = lib.mkDefault false;
   };
+
+  environment.systemPackages = with pkgs; [
+    nixd
+  ];
 }

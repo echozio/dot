@@ -1,4 +1,10 @@
-{ modulesPath, sec, pkgs, nixpkgs-stable, ... }:
+{
+  modulesPath,
+  sec,
+  pkgs,
+  nixpkgs-stable,
+  ...
+}:
 {
   imports = [
     sec.nixosModules.dot
