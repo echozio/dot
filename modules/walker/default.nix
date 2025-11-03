@@ -29,27 +29,31 @@
           list = "";
         };
         providers = {
-          empty = [ ];
+          default = [ "desktopapplications" ];
+          empty = [ "desktopapplications" ];
         };
+        theme = "custom";
       };
 
-      theme.style = ''
-        * {
-          background: none;
-          border: none;
-          box-shadow: none;
-          color: #eee;
-          font-family: JetBrains Mono Nerd Font Propo;
-          font-size: 12pt;
-          outline: none;
-        }
+      themes.custom = {
+        style = ''
+          * {
+            background: none;
+            border: none;
+            box-shadow: none;
+            color: #eee;
+            font-family: JetBrains Mono Nerd Font Propo;
+            font-size: 12pt;
+            outline: none;
+          }
 
-        .box-wrapper {
-          padding: 20px;
-          border-radius: 20px;
-          background: rgba(0,0,0,0.2);
-        }
-      '';
+          .box-wrapper {
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(0,0,0,0.2);
+          }
+        '';
+      };
 
       elephant = {
         installService = true;

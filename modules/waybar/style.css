@@ -38,3 +38,7 @@ window#waybar {
 #workspaces button.active {
   box-shadow: inset 0px 2px #fff;
 }
+
+#workspaces button.empty {
+  color: #777;
+}

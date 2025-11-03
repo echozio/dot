@@ -106,6 +106,10 @@
             workspace_center_on = 1;
           };
 
+          workspace = (builtins.genList (n: "${toString (n + 1)}, persistent:true") 9) ++ [
+            "special:special, on-created-empty:kitty --class kitty-special"
+          ];
+
           "$mod" = lib.mkDefault "SUPER";
 
           bind = [
@@ -132,7 +136,7 @@
             "$mod, 7, workspace, 7"
             "$mod, 8, workspace, 8"
             "$mod, 9, workspace, 9"
-            "$mod, 0, workspace, 10"
+            "$mod, 0, togglespecialworkspace"
 
             "$mod SHIFT, 1, movetoworkspacesilent, 1"
             "$mod SHIFT, 2, movetoworkspacesilent, 2"
@@ -143,7 +147,7 @@
             "$mod SHIFT, 7, movetoworkspacesilent, 7"
             "$mod SHIFT, 8, movetoworkspacesilent, 8"
             "$mod SHIFT, 9, movetoworkspacesilent, 9"
-            "$mod SHIFT, 0, movetoworkspacesilent, 10"
+            "$mod SHIFT, 0, movetoworkspacesilent, special:special"
           ];
 
           bindm = [
@@ -156,6 +160,15 @@
 
           windowrule = [
             "noblur, xwayland:1"
+            "workspace special:special silent, class:^kitty-special$"
+            "size 827 555, class:^kitty-special$"
+            "float, onworkspace:special:special"
+            "workspace 4 silent, class:^steam$"
+            "workspace 2 silent, class:^steam_app_[0-9]+$"
+            "workspace 5 silent, class:^firefox$"
+            "workspace 3 silent, class:^discord$"
+            "workspace 3 silent, class:^Slack$"
+            "workspace 3 silent, class:^Spotify$"
           ];
         };
       };
