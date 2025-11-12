@@ -59,5 +59,20 @@
     enableAllFirmware = true;
     cpu.amd.updateMicrocode = true;
     amdgpu.initrd.enable = true;
+
+    printers = {
+      ensurePrinters = [
+        {
+          name = "cs410n";
+          deviceUri = "ipp://192.168.0.7";
+          model = "everywhere";
+          ppdOptions = {
+            PageSize = "A4";
+          };
+        }
+      ];
+
+      ensureDefaultPrinter = "cs410n";
+    };
   };
 }
