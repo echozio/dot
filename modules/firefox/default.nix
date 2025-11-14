@@ -1,9 +1,4 @@
-{
-  lib,
-
-  user,
-  ...
-}:
+{ user, ... }:
 {
   imports = [
     ./policies.nix

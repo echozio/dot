@@ -17,7 +17,7 @@ user_pref("browser.tabs.insertAfterCurrentExceptPinned", true);
 user_pref("general.aboutConfig.enable", true);
 user_pref("middlemouse.paste", false);
 user_pref("sidebar.animation.enabled", false);
-user_pref("image.jxl.enabled", true);
+// user_pref("image.jxl.enabled", true);
 user_pref("devtools.cache.disabled", true);
 user_pref("devtools.netmonitor.persistlog", true);
 user_pref("devtools.webconsole.persistlog", true);
