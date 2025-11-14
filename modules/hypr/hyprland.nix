@@ -102,6 +102,10 @@
             };
           };
 
+          cursor = {
+            warp_on_change_workspace = 1;
+          };
+
           binds = {
             workspace_center_on = 1;
           };
