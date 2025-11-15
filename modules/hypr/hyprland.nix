@@ -179,13 +179,5 @@
 
       xdg.configFile."uwsm/env".source =
         "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
-
-      home.pointerCursor = {
-        enable = true;
-        gtk.enable = true;
-        name = "Adwaita";
-        package = pkgs.gnome-themes-extra;
-        size = 24;
-      };
     };
 }

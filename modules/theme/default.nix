@@ -28,5 +28,15 @@
       platformTheme.name = "adwaita";
       style.name = "adwaita-dark";
     };
+
+    home.pointerCursor = {
+      enable = true;
+      dotIcons.enable = false;
+      gtk.enable = true;
+      x11.enable = true;
+      name = "Adwaita";
+      package = pkgs.gnome-themes-extra;
+      size = 24;
+    };
   };
 }

@@ -1,7 +1,11 @@
 {
-  user,
+  lib,
   config,
+  pkgs,
+
   nix-flatpak,
+
+  user,
   ...
 }:
 {
@@ -15,23 +19,46 @@
 
   services.flatpak = {
     enable = true;
-    uninstallUnmanagedPackages = true;
+    uninstallUnmanaged = true;
 
     update.auto = {
       enable = true;
       onCalendar = "daily";
     };
 
-    overrides = {
-      "com.adamcake.Bolt".Environment = {
-        _JAVA_AWT_WM_NONREPARENTING = "1";
-      };
+    overrides =
+      let
+        hmConfig = config.home-manager.users.${user};
 
-      "com.valvesoftware.Steam".Context.filesystems = [
-        "xdg-config/MangoHud:ro"
-        "${config.home-manager.users.chris.home-files}/.config/MangoHud/MangoHud.conf:ro"
-      ];
-    };
+        storePath =
+          path:
+          lib.pipe path [
+            (rootPaths: pkgs.closureInfo { inherit rootPaths; })
+            (closureInfo: builtins.readFile "${closureInfo}/store-paths")
+            (lib.splitString "\n")
+            (builtins.filter (p: p != ""))
+            (builtins.map (p: "${p}:ro"))
+          ];
+      in
+      {
+        global = {
+          Context.filesystems = [
+            "xdg-config/MangoHud:ro"
+            "${hmConfig.home-files}/.config/MangoHud/MangoHud.conf:ro"
+            "${hmConfig.home-files}/.local/share/icons:ro"
+            "${hmConfig.xdg.dataFile."icons/default/index.theme".source}:ro"
+          ]
+          ++ (storePath hmConfig.home.pointerCursor.package);
+
+          Environment = {
+            XCURSOR_PATH = "${hmConfig.home-files}/.local/share/icons";
+          };
+        };
+
+        "com.adamcake.Bolt".Environment = {
+          _JAVA_AWT_WM_NONREPARENTING = "1";
+        };
+      };
 
     packages = [
       "com.adamcake.Bolt"
@@ -47,8 +74,6 @@
 
   environment.persistence."/fix" = {
     directories = [ "/var/lib/flatpak" ];
-    users.${user}.directories = [
-      ".var/app"
-    ];
+    users.${user}.directories = [ ".var/app" ];
   };
 }
