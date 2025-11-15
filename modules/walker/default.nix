@@ -57,7 +57,7 @@
 
       elephant = {
         installService = true;
-        config = {
+        settings = {
           providers.desktopapplications = {
             launch_prefix = "uwsm app --";
           };

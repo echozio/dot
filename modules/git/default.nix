@@ -8,10 +8,10 @@
 {
   home-manager.users.${user}.programs.git = {
     enable = true;
-    userName = lib.toSentenceCase user;
-    userEmail = email;
 
-    extraConfig = {
+    settings = {
+      user.name = lib.toSentenceCase user;
+      user.email = email;
       push.autoSetupRemote = true;
       pull.rebase = true;
       init.defaultBranch = "main";
