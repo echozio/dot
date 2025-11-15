@@ -1,4 +1,4 @@
-{ config, disko, ... }:
+{ disko, ... }:
 {
   imports = [ disko.nixosModules.disko ];
 

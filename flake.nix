@@ -10,6 +10,7 @@
     walker.url = "github:abenz1267/walker";
     elephant.url = "github:abenz1267/elephant";
     nixpak.url = "github:nixpak/nixpak";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/v0.6.0";
     imsh-clients.url = "github:echozio/imsh-clients";
 
     disko.inputs.nixpkgs.follows = "nixpkgs";
