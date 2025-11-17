@@ -15,6 +15,12 @@
       push.autoSetupRemote = true;
       pull.rebase = true;
       init.defaultBranch = "main";
+      merge.tool = "nvimdiff";
+      mergetool = {
+        prompt = false;
+        keepBackup = false;
+        nvimdiff.layout = "LOCAL,BASE,REMOTE / MERGED";
+      };
     };
   };
 }
