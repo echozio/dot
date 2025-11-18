@@ -34,5 +34,7 @@ writeShellApplication {
     cp -vr --no-preserve=all ${lib.escapeShellArg fusion-fix}/. .
     7z x ${lib.escapeShellArg radio-restorer}/"Resources/Radio Restorer/data1.dat" -y
     7z x ${lib.escapeShellArg radio-restorer}/"Resources/Radio Restorer/opVANILLA.dat" -y
+    7z x ${lib.escapeShellArg radio-restorer}/"Resources/Radio Restorer/opSPLITbase.dat" -y
+    7z x ${lib.escapeShellArg radio-restorer}/"Resources/Radio Restorer/opSPLITVANILLA.dat" -y
   '';
 }
