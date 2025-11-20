@@ -42,7 +42,7 @@ style: ''
 
     .tab-background {
       &:is([selected], [multiselected]) {
-        background-color: ${style.colors.bg.rgba} !important;
+        background-color: rgba(255,255,255,0.1) !important;
       }
     }
 
