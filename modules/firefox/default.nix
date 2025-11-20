@@ -1,4 +1,4 @@
-{ user, ... }:
+{ style, user, ... }:
 {
   imports = [
     ./policies.nix
@@ -36,7 +36,7 @@
         };
 
         extraConfig = builtins.readFile ./user.js;
-        userChrome = builtins.readFile ./userChrome.css;
+        userChrome = import ./userChrome.css.nix style;
       };
     };
   };

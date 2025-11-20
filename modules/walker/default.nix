@@ -1,9 +1,6 @@
 {
-  lib,
-  config,
-
+  style,
   user,
-
   walker,
   ...
 }:
@@ -41,8 +38,8 @@
             background: none;
             border: none;
             box-shadow: none;
-            color: #eee;
-            font-family: JetBrains Mono Nerd Font Propo;
+            color: #${style.colors.fg.hex};
+            font-family: ${style.fonts.mono.family};
             font-size: 12pt;
             outline: none;
           }
@@ -50,7 +47,7 @@
           .box-wrapper {
             padding: 20px;
             border-radius: 20px;
-            background: rgba(0,0,0,0.2);
+            background: ${style.colors.bg.rgba};
           }
         '';
       };

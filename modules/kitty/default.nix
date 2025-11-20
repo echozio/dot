@@ -1,8 +1,8 @@
 {
   lib,
-  config,
   pkgs,
 
+  style,
   user,
   ...
 }:
@@ -13,17 +13,30 @@
     programs.kitty = {
       enable = true;
       font = {
-        name = "JetBrains Mono Nerd Font Mono";
+        name = style.fonts.mono.family;
         size = 12;
         package = pkgs.nerd-fonts.jetbrains-mono;
       };
       settings = {
-        background = "#000000";
-        background_opacity = 0.2;
         window_padding_width = 10;
         disable_ligatures = false;
         confirm_os_window_close = 0;
-      };
+      }
+      // (with style.colors; {
+        foreground = "#${fg.hex}";
+        background = "#${bg.hex}";
+        background_opacity = bg.a;
+        selection_foreground = "#${bg.hex}";
+        selection_background = "#${fg.hex}";
+
+        cursor = "#${fg.hex}";
+        cursor_text_color = "#${bg.hex}";
+
+        url_color = "#${url.hex}";
+      })
+      // builtins.mapAttrs (_: c: "#${c.hex}") (
+        lib.getAttrs (builtins.genList (n: "color${builtins.toString n}") 16) style.colors
+      );
     };
   };
 }

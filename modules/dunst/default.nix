@@ -1,6 +1,7 @@
 {
   pkgs,
 
+  style,
   user,
   ...
 }:
@@ -30,7 +31,7 @@
           frame_width = 0;
           markup = "full";
           icon_position = "off";
-          font = "JetBrains Mono Nerd Font Propo 12";
+          font = "${style.fonts.mono.family} 12";
           line_height = 12;
           stack_duplicates = true;
           hide_duplicate_count = true;
@@ -42,23 +43,23 @@
 
         urgency_low = {
           timeout = 3;
-          background = "#00000033";
-          foreground = "#eeeeee";
-          frame_color = "#eeeeee";
+          background = "#${style.colors.bg.hexRgba}";
+          foreground = "#${style.colors.fg.hex}";
+          frame_color = "#${style.colors.fg.hex}";
         };
 
         urgency_normal = {
           timeout = 3;
-          background = "#00000033";
-          foreground = "#eeeeee";
-          frame_color = "#eeeeee";
+          background = "#${style.colors.bg.hexRgba}";
+          foreground = "#${style.colors.fg.hex}";
+          frame_color = "#${style.colors.fg.hex}";
         };
 
         urgency_critical = {
           timeout = 30;
-          background = "#00000033";
-          foreground = "#eeeeee";
-          frame_color = "#eeee00";
+          background = "#${style.colors.bg.hexRgba}";
+          foreground = "#${style.colors.fg.hex}";
+          frame_color = "#${style.colors.red.hex}";
         };
       };
     };

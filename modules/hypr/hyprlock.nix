@@ -1,4 +1,5 @@
 {
+  style,
   user,
   ...
 }:
@@ -25,7 +26,7 @@
         dots_center = false;
         fade_on_empty = true;
         font_color = "rgba(255, 255, 255, 0.2)";
-        inner_color = "rgba(0,0,0,0.2)";
+        inner_color = style.colors.bg.rgba;
         check_color = "rgba(0,0,255,0.2)";
         fail_color = "rgba(255,0,0,0.2)";
         fail_text = "";

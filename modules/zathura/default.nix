@@ -1,4 +1,4 @@
-{ user, ... }:
+{ style, user, ... }:
 {
   home-manager.users.${user}.programs.zathura = {
     enable = true;
@@ -9,13 +9,13 @@
       l = "feedkeys <C-Right>";
     };
 
-    options = {
-      font = "JetBrains Mono Nerd Font Propo 12";
-      default-fg = "rgba(255,255,255,1)";
-      default-bg = "rgba(0,0,0,0.2)";
-      statusbar-bg = "rgba(0,0,0,0)";
-      inputbar-bg = "rgba(0,0,0,0)";
-      completion-bg = "rgba(0,0,0,0)";
+    options = with style; {
+      font = "${fonts.mono.family} 12";
+      default-fg = colors.fg.rgba;
+      default-bg = colors.bg.rgba;
+      statusbar-bg = colors.bg.rgba;
+      inputbar-bg = colors.bg.rgba;
+      completion-bg = colors.bg.rgba;
     };
   };
 }

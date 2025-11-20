@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
 
+  style,
   user,
   ...
 }:
@@ -33,19 +33,14 @@
             gaps_in = 5;
             gaps_out = 20;
             border_size = 2;
-            "col.active_border" = "rgba(00000000) rgba(ffffffff) rgba(00000000) 45deg";
+            "col.active_border" = "rgba(00000000) ${style.colors.fg.rgbaHex} rgba(00000000) 45deg";
             "col.inactive_border" = "rgba(00000000)";
             layout = "dwindle";
           };
 
           decoration = {
             rounding = 10;
-            shadow = {
-              enabled = false;
-              range = 4;
-              render_power = 3;
-              color = "rgba(1a1a1aee)";
-            };
+            shadow.enabled = false;
             blur = {
               enabled = true;
               size = 9;
@@ -86,9 +81,9 @@
           group = {
             drag_into_group = 2;
             merge_groups_on_drag = false;
-            "col.border_active" = "rgba(00000000) rgba(ffffffff) rgba(00000000) 45deg";
+            "col.border_active" = "rgba(00000000) ${style.colors.fg.rgbaHex} rgba(00000000) 45deg";
             "col.border_inactive" = "rgba(00000000)";
-            "col.border_locked_active" = "rgba(00000000) rgba(ffffffff) rgba(00000000) 45deg";
+            "col.border_locked_active" = "rgba(00000000) ${style.colors.fg.rgbaHex} rgba(00000000) 45deg";
             "col.border_locked_inactive" = "rgba(00000000)";
 
             groupbar = {
@@ -97,8 +92,8 @@
               gaps_out = 5;
               indicator_height = 4;
               rounding = 2;
-              "col.active" = "rgba(ffffffff)";
-              "col.inactive" = "rgba(999999ff)";
+              "col.active" = style.colors.fg.rgbaHex;
+              "col.inactive" = style.colors.lo.rgbaHex;
             };
           };
 

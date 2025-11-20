@@ -1,0 +1,66 @@
+style: ''
+  @-moz-document url(chrome://browser/content/browser.xul), url(chrome://browser/content/browser.xhtml) {
+    #browser {
+      background-color: ${style.colors.bg.rgba} !important;
+    }
+
+    #navigator-toolbox {
+      background-color: ${style.colors.bg.rgba} !important;
+      border-bottom: none !important;
+    }
+
+    #firefox-view-button,
+    toolbarbutton.titlebar-close,
+    toolbarspring,
+    toolbarbutton#alltabs-button,
+    #urlbar-searchmode-switcher,
+    /* #unified-extensions-button, */
+    image.tab-close-button.close-icon,
+    toolbarbutton#tabs-newtab-button,
+    splitter#sidebar-tools-and-extensions-splitter,
+    .titlebar-spacer {
+      display: none !important;
+    }
+
+    #urlbar hbox.urlbar-background,
+    toolbar#nav-bar {
+      background: transparent !important;
+    }
+
+    #urlbar[breakout-extend] hbox.urlbar-background {
+      background: #${style.colors.hibg.hex} !important;
+    }
+
+    tabs#tabbrowser-tabs {
+      border-inline-start: none !important;
+    }
+
+
+    .tabbrowser-tab:hover > .tab-stack > &:not([selected], [multiselected]) {
+      background-color: ${style.colors.bg.rgba} !important;
+    }
+
+    .tab-background {
+      &:is([selected], [multiselected]) {
+        background-color: ${style.colors.bg.rgba} !important;
+      }
+    }
+
+    toolbaritem#ublock0_raymondhill_net-browser-action image.toolbarbutton-icon {
+      filter: grayscale(100%) invert(100%);
+    }
+
+    toolbaritem#_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action image.toolbarbutton-icon,
+    button[title="Bitwarden"] img {
+      filter: grayscale(100%) invert(100%) contrast(200%);
+    }
+
+    toolbaritem#addon_darkreader_org-browser-action image.toolbarbutton-icon {
+      filter: grayscale(100%) invert(100%) contrast(250%);
+    }
+
+    stack.tab-icon-stack {
+      display: none;
+    }
+  }
+''

@@ -1,18 +1,12 @@
-{
-  lib,
-  config,
-
-  user,
-  ...
-}:
+{ style, user, ... }:
 {
   config = {
 
     home-manager.users.${user}.services.hyprpaper = {
       enable = true;
       settings = {
-        preload = [ "${./wallpaper.jpg}" ];
-        wallpaper = [ ",${./wallpaper.jpg}" ];
+        preload = [ style.wallpaper ];
+        wallpaper = [ ",${style.wallpaper}" ];
       };
     };
   };

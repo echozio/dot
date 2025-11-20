@@ -3,6 +3,7 @@
   config,
   pkgs,
 
+  style,
   user,
 
   home-manager,
@@ -28,13 +29,13 @@
                 exec-once = [
                   "${lib.getExe pkgs.gtkgreet} -s ${pkgs.writeText "greetd-style.css" ''
                     window, button, entry {
-                      background: rgba(0,0,0,0.2);
+                      background: ${style.colors.bg.rgba};
                       border: none;
                       box-shadow: none;
                       text-shadow: none;
                     }
                     label, window, button, entry {
-                      color: #eee;
+                      color: #${style.colors.fg.hex};
                     }
                     #command-selector arrow {
                       opacity: 0;

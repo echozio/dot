@@ -1,6 +1,5 @@
 {
-  lib,
-
+  style,
   user,
   ...
 }:
@@ -16,34 +15,34 @@
 
       settings = {
         general = {
-          font-regular = "JetBrains Mono Nerd Font Propo:size=12";
-          font-large = "JetBrains Mono Nerd Font Propo:size=24";
+          font-regular = "${style.fonts.mono.family}:size=12";
+          font-large = "${style.fonts.mono.family}:size=24";
           corner-radius = 10;
           border = 0;
           pin-square-amount = 32;
         };
 
-        colours = {
-          background = "00000033";
-          border = "00000033";
-          text = "ffffffff";
-          error-text = "ffffffff";
+        colours = with style.colors; {
+          background = bg.hexRgba;
+          border = bg.hexRgba;
+          text = fg.hexRgba;
+          error-text = fg.hexRgba;
 
-          pin-background = "00000033";
-          pin-border = "eeeeeeff";
-          pin-square = "eeeeeeff";
+          pin-background = bg.hexRgba;
+          pin-border = fg.hexRgba;
+          pin-square = fg.hexRgba;
 
-          ok-button = "00000033";
-          ok-button-border = "eeeeeeff";
-          ok-button-text = "eeeeeeff";
+          ok-button = bg.hexRgba;
+          ok-button-border = fg.hexRgba;
+          ok-button-text = fg.hexRgba;
 
-          not-ok-button = "00000033";
-          not-ok-button-border = "eeeeeeff";
-          not-ok-button-text = "eeeeeeff";
+          not-ok-button = bg.hexRgba;
+          not-ok-button-border = fg.hexRgba;
+          not-ok-button-text = fg.hexRgba;
 
-          cancel-button = "00000033";
-          cancel-button-border = "eeeeeeff";
-          cancel-button-text = "eeeeeeff";
+          cancel-button = bg.hexRgba;
+          cancel-button-border = fg.hexRgba;
+          cancel-button-text = fg.hexRgba;
         };
       };
     };
