@@ -52,7 +52,6 @@
       "usbhid"
     ];
     kernelModules = [ "kvm-amd" ];
-    kernelPackages = nixpkgs-stable.legacyPackages.${pkgs.system}.linuxPackages_lqx;
   };
 
   hardware = {
