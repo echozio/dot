@@ -117,12 +117,12 @@
 
         #workspaces button:hover {
           background: inherit;
-          box-shadow: inset 0px 2px #${style.colors.lo.hex};
+          box-shadow: inset 0px 2px #${style.colors.fg.hex};
           text-shadow: inherit;
         }
 
         #workspaces button.active {
-          box-shadow: inset 0px 2px #${style.colors.bg.hex};
+          box-shadow: inset 0px 2px #${style.colors.fg.hex};
         }
 
         #workspaces button.empty {
