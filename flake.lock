@@ -130,11 +130,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759497641,
-        "narHash": "sha256-VbzrwiqWhwGQLQiV6TOYiCGMF9+W0RRhHotLZWNiOU4=",
+        "lastModified": 1763708518,
+        "narHash": "sha256-QOymjJiB7sVYyzrMkkEn/GS5p4qnYM+f4PoLVNC/6Gg=",
         "owner": "echozio",
         "repo": "imsh-clients",
-        "rev": "9fb726805a2f9ae34d80ccf8332a09343dbef709",
+        "rev": "0d23d09d97bb6b113fdf2f6da4a9dfe4a9d3fc71",
         "type": "github"
       },
       "original": {
