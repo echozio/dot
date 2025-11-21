@@ -43,6 +43,29 @@
                 action: jump-to-activity
               * bind: "C-s"
                 action: jump-to-previous
+
+              * bind: "C-o"
+                action: clear-format
+              * bind: "C-c"
+                action: color
+              * bind: "C-v"
+                action: reverse-video
+
+                -- ^4
+              * bind: "C-\\"
+                action: bold
+
+                -- ^5
+              * bind: "C-]"
+                action: italic
+
+                -- ^6
+              * bind: "C-^"
+                action: strikethrough
+
+                -- ^7
+              * bind: "C-_"
+                action: underline
           '';
         };
     };
