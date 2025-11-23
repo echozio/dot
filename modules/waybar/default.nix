@@ -39,11 +39,11 @@
           };
           clock = {
             interval = 1;
-            format = " {:%I:%M:%S%p}";
+            format = " {:%I:%M:%S %p}";
           };
           "clock#utc" = {
             interval = 1;
-            format = " {:%I:%M:%S%p}";
+            format = " {:%I:%M:%S %p}";
             timezone = "UTC";
           };
           cpu = {
