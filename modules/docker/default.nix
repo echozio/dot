@@ -2,6 +2,9 @@
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;
+    daemon.settings = {
+      features.containerd-snapshotter = true;
+    };
   };
 
   boot = {
