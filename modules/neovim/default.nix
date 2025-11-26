@@ -17,5 +17,7 @@
 
   environment.systemPackages = with pkgs; [
     nixd
+    gopls
+    typescript-language-server
   ];
 }

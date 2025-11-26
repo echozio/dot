@@ -17,6 +17,8 @@ vim.keymap.set({'n','v'}, '<C-c>', '"+y')
 vim.keymap.set({'n','v'}, '<C-v>', '"+p')
 vim.keymap.set({'n','v'}, '<C-x>', '"+d')
 vim.keymap.set({'n','v'}, '<C-q>', '<C-v>', { noremap = true})
+vim.keymap.set({'n','v'}, '<C-n>', ':bn<cr>')
+vim.keymap.set({'n','v'}, '<C-p>', ':bp<cr>')
 vim.api.nvim_create_autocmd('BufReadPost', {
   group = vim.api.nvim_create_augroup('ReturnToLastLine', { clear = true }),
   callback = function()
@@ -111,6 +113,19 @@ vim.lsp.config('nixd', {
   filetypes = { 'nix' },
   root_markers = { 'flake.nix', '.git' },
 })
+vim.lsp.config('gopls', {
+  cmd = { 'gopls' },
+  filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+  root_markers = { 'go.work', 'go.mod', '.git' },
+})
+vim.lsp.config('typescript-language-server', {
+  cmd = { 'typescript-language-server', '--stdio' },
+  filetypes = { 'javascript', 'typescript' },
+  root_markers = { 'jsconfig.json', 'tsconfig.json', 'package.json', '.git' },
+  init_options = { hostInfo = 'neovim' },
+})
 vim.lsp.enable({
-  "nixd",
+  'nixd',
+  'gopls',
+  'typescript-language-server',
 })
