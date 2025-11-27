@@ -7,6 +7,11 @@ vim.opt.relativenumber = true
 vim.opt.scrolloff = 5
 vim.opt.path = vim.o.path .. '**'
 vim.opt.wildmenu = true
+vim.opt.wildignore = {
+  "**/.direnv/**",
+  "**/node_modules/**",
+  "**/vendor/**",
+};
 vim.opt.cursorline = true
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath('data') .. '/undodir'
