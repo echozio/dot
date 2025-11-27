@@ -65,8 +65,10 @@ vim.api.nvim_set_hl(0, 'WinBar', { bg='none' })
 vim.api.nvim_set_hl(0, 'WinBarNC', { bg='none', fg='gray' })
 vim.api.nvim_set_hl(0, 'NormalFloat', { bg='none' })
 vim.api.nvim_set_hl(0, 'FloatBorder', { bg='none' })
+vim.api.nvim_set_hl(0, 'Pmenu', { bg='none' })
+vim.api.nvim_set_hl(0, 'PmenuBorder', { bg='none' })
 vim.opt.winborder = "rounded";
--- vim.opt.pumborder = "rounded";
+vim.opt.pumborder = "rounded";
 function _G.WinBar()
   local buffers = {}
   local current = vim.api.nvim_win_get_buf(0)
