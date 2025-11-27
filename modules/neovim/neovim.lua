@@ -99,14 +99,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'BufDelete'}, {
 })
 vim.diagnostic.config({ virtual_text = true })
 vim.opt.signcolumn = "yes"
-vim.opt.completeopt = { "menuone", "noselect", "popup" }
-vim.api.nvim_create_autocmd('InsertCharPre', {
-  group = vim.api.nvim_create_augroup("TriggerAutocomplete", { clear = true }),
-  buffer = vim.api.nvim_get_current_buf(),
-  callback = function()
-    vim.lsp.completion.get()
-  end
-})
+vim.opt.completeopt = { "fuzzy", "menu", "menuone", "noinsert", "popup" }
 vim.lsp.config('*', {
   root_markers = { '.git' },
   on_attach = function(client, bufnr)
