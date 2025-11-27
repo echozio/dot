@@ -1,5 +1,4 @@
-{ pkgs, nixpkgs-stable, ... }:
+{ pkgs, ... }:
 {
-  boot.kernelPackages =
-    nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.linuxPackages_lqx;
+  boot.kernelPackages = pkgs.linuxPackages_lqx;
 }
