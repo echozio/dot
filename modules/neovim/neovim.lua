@@ -63,6 +63,10 @@ vim.api.nvim_set_hl(0, 'Normal', { bg='none' })
 vim.api.nvim_set_hl(0, 'StatusLine', { bg='none' })
 vim.api.nvim_set_hl(0, 'WinBar', { bg='none' })
 vim.api.nvim_set_hl(0, 'WinBarNC', { bg='none', fg='gray' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { bg='none' })
+vim.api.nvim_set_hl(0, 'FloatBorder', { bg='none' })
+vim.opt.winborder = "rounded";
+-- vim.opt.pumborder = "rounded";
 function _G.WinBar()
   local buffers = {}
   local current = vim.api.nvim_win_get_buf(0)
@@ -130,3 +134,33 @@ vim.lsp.enable({
   'gopls',
   'typescript-language-server',
 })
+vim.keymap.set({'n','v'}, '<C-/>', function()
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_keymap(buf, 'n', 'q', ':q<CR>', {
+    silent = true,
+    nowait = true,
+  })
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, {
+    'i   C-x C-o  Omni completion',
+    'n   K        Hover',
+    'n,v C-w d    Hover diagnostics',
+    'n,v gra      Code action',
+    'n   gri      Go to implementation',
+    'n   grt      Go to type definition',
+    'n   grr      References',
+    'n   grn      Rename',
+    'n   gO       List symbols',
+    'vb  I        Insert before every line in block',
+  })
+  local win = vim.api.nvim_open_win(buf, true, {
+    title = 'Cheat sheet',
+    relative = 'editor',
+    row = math.floor(vim.o.lines * 0.10),
+    col = math.floor(vim.o.columns * 0.10),
+    height = math.floor(vim.o.lines * 0.80),
+    width = math.floor(vim.o.columns * 0.80),
+    style = 'minimal',
+    title_pos = 'center',
+    focusable = true,
+  })
+end)
