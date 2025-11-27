@@ -80,7 +80,7 @@ function _G.WinBar()
   end
   return table.concat(buffers)
 end
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'BufDelete'}, {
+vim.api.nvim_create_autocmd({'BufEnter', 'BufAdd', 'BufDelete'}, {
   group = vim.api.nvim_create_augroup("WinBarVisibility", { clear = true }),
   pattern = "*",
   callback = function()
@@ -97,6 +97,9 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'BufDelete'}, {
     end
   end
 })
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = -30
+vim.g.netrw_liststyle = 3
 vim.diagnostic.config({ virtual_text = true })
 vim.opt.signcolumn = "yes"
 vim.opt.completeopt = { "fuzzy", "menu", "menuone", "noinsert", "popup" }
