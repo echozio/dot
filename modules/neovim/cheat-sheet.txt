@@ -1,0 +1,10 @@
+i   C-x C-o  Omni completion
+n   K        Hover
+n,v C-w d    Hover diagnostics
+n,v gra      Code action
+n   gri      Go to implementation
+n   grt      Go to type definition
+n   grr      References
+n   grn      Rename
+n   gO       List symbols
+vb  I        Insert before every line in block
