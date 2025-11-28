@@ -1,6 +1,8 @@
 i   C-x C-o  Omni completion
 n   K        Hover
 n,v C-w d    Hover diagnostics
+n,v C-w a    All diagnostics
+n,v gqb      Format buffer
 n,v gra      Code action
 n   gri      Go to implementation
 n   grt      Go to type definition

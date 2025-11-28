@@ -4,7 +4,7 @@
   ...
 }:
 let
-  runtime = luaRuntime // lspRuntime // ftpluginRuntime;
+  runtime = luaRuntime // lspRuntime // ftpluginRuntime // treesitterRuntime;
 
   initLua = generateInitLua runtime {
     cheat-sheet.file = ./cheat-sheet.txt;
@@ -22,6 +22,7 @@ let
         "flake.nix"
         ".git"
       ];
+      settings.nixd.formatting.command = [ (lib.getExe pkgs.nixfmt-rfc-style) ];
     };
 
     gopls = {
@@ -80,6 +81,20 @@ let
     };
   };
 
+  treesitterRuntime =
+    let
+      grammars = pkgs.symlinkJoin {
+        name = "neovim-grammars";
+        paths = lib.mapAttrsToList (_: grammar: pkgs.neovimUtils.grammarToPlugin grammar) (
+          lib.filterAttrs (_: lib.isDerivation) pkgs.tree-sitter-grammars
+        );
+      };
+    in
+    {
+      parser.source = grammars + "/parser";
+      queries.source = grammars + "/queries";
+    };
+
   generateLspRuntime =
     lsps:
     (lib.mapAttrs' (name: config: {
@@ -90,15 +105,14 @@ let
       "lua/lsp.lua".text = ''
         local M = {}
         function M.setup()
-          vim.lsp.enable(${lib.generators.toLua { indent="  "; } (builtins.attrNames lsps)})
+          vim.lsp.enable(${lib.generators.toLua { indent = "  "; } (builtins.attrNames lsps)})
         end
         return M
       '';
     };
 
   importLuaDir =
-    prefix:
-    path:
+    prefix: path:
     lib.pipe (builtins.readDir path) [
       (lib.mapAttrs' (
         name: type: {

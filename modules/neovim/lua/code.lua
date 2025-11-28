@@ -12,6 +12,9 @@ function M.setup()
       vim.lsp.completion.enable(true, client.id, bufnr, {})
     end,
   })
+
+  vim.keymap.set({ 'n', 'v' }, 'gqb', vim.lsp.buf.format)
+  vim.keymap.set({ 'n', 'v' }, '<C-W>a', vim.diagnostic.setloclist)
 end
 
 return M
