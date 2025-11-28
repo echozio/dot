@@ -4,7 +4,7 @@
   ...
 }:
 let
-  runtime = luaRuntime // lspRuntime // ftpluginRuntime;
+  runtime = luaRuntime // lspRuntime // ftpluginRuntime // treesitterRuntime;
 
   initLua = generateInitLua runtime {
     cheat-sheet.file = ./cheat-sheet.txt;
@@ -80,6 +80,33 @@ let
       settings.Lua."diagnostics.globals" = [ "vim" ];
     };
   };
+
+  treesitterRuntime =
+    let
+      languages = [
+        "typescript"
+        "javascript"
+        "nix"
+        "lua"
+        "go"
+        "python"
+      ];
+
+      grammars = pkgs.symlinkJoin {
+        name = "neovim-grammars";
+        paths = lib.mapAttrsToList (_: grammar: pkgs.neovimUtils.grammarToPlugin grammar) (
+          lib.filterAttrs (
+            _: drv:
+            lib.isDerivation drv
+            && builtins.elem (builtins.head (builtins.match "^tree-sitter-(.*)-grammar$" drv.pname)) languages
+          ) pkgs.tree-sitter-grammars
+        );
+      };
+    in
+    {
+      parser.source = grammars + "/parser";
+      queries.source = grammars + "/queries";
+    };
 
   generateLspRuntime =
     lsps:
