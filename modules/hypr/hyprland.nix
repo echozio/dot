@@ -20,6 +20,8 @@
         package = null;
         portalPackage = null;
         settings = {
+          monitor = [ ",preferred,auto,1" ];
+
           input = {
             kb_layout = "us";
             kb_options = "compose:ralt,caps:escape";

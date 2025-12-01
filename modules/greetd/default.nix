@@ -29,6 +29,7 @@ in
         portalPackage = null;
         settings = {
           inherit (hmUserCfg.wayland.windowManager.hyprland.settings)
+            monitor
             input
             general
             misc

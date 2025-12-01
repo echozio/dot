@@ -2,7 +2,6 @@
   modulesPath,
   sec,
   pkgs,
-  nixpkgs-stable,
   ...
 }:
 {
@@ -46,6 +45,7 @@
   };
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_lqx;
     initrd.availableKernelModules = [
       "nvme"
       "thunderbolt"

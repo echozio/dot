@@ -109,6 +109,7 @@
           vm = mkHost ./hosts/vm;
           rc = mkHost ./hosts/rc;
           ws = mkHost ./hosts/ws;
+          tp = mkHost ./hosts/tp;
         };
 
       formatter = forAllSystems (

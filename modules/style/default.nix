@@ -4,7 +4,7 @@ let
 in
 {
   _module.args.style = {
-    wallpaper = builtins.toString ./wallpaper.jpg;
+    wallpaper = builtins.path { path = ./wallpaper.jpg; };
 
     fonts = {
       mono = rec {
