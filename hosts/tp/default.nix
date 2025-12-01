@@ -36,7 +36,7 @@
     wayland.windowManager.hyprland.settings = {
       device = [
         {
-          name = "synps/2-synaptics-touchpad";
+          name = "elan0676:00-04f3:3195-touchpad";
           enabled = false;
         }
       ];
