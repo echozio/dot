@@ -33,14 +33,6 @@
 
   home-manager.users.${user} = {
     services.hypridle.brightnessDevice = "intel_backlight";
-    wayland.windowManager.hyprland.settings = {
-      device = [
-        {
-          name = "elan0676:00-04f3:3195-touchpad";
-          enabled = false;
-        }
-      ];
-    };
   };
 
   powerManagement.powertop.enable = true;
