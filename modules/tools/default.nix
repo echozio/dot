@@ -23,6 +23,7 @@
       wdiff
       xxd
       yq-go
+      yt-dlp
       zip
     ];
   };
