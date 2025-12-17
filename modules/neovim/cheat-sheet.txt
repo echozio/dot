@@ -1,4 +1,5 @@
 i   C-x C-o  Omni completion
+i   C-s      Signature help
 n   K        Hover
 n,v C-w d    Hover diagnostics
 n,v C-w a    All diagnostics
@@ -10,3 +11,5 @@ n   grr      References
 n   grn      Rename
 n   gO       List symbols
 vb  I        Insert before every line in block
+v,o an       Outer incremental selection
+v,o in       Inner incremental selection
