@@ -1,5 +1,7 @@
 {
+  pkgs,
   modulesPath,
+
   sec,
   user,
   ...
@@ -17,6 +19,20 @@
     hostName = "tp";
     hostId = "4a2e8151";
     networkmanager.enable = true;
+    modemmanager = {
+      enable = true;
+      fccUnlockScripts = [
+        {
+          id = "2c7c:030a";
+          path = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/2c7c:030a";
+        }
+      ];
+    };
+  };
+
+  systemd.services.ModemManager = {
+    enable = true;
+    wantedBy = [ "multi-user.target" "network.target" ];
   };
 
   boot = {
