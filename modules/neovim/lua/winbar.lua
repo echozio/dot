@@ -1,7 +1,7 @@
 local M = {}
 
 function M.setup()
-  vim.api.nvim_create_autocmd({'BufEnter', 'BufAdd', 'BufDelete'}, {
+  vim.api.nvim_create_autocmd({'BufEnter', 'BufAdd', 'BufDelete', 'BufLeave', 'BufModifiedSet', 'BufWrite'}, {
     group = vim.api.nvim_create_augroup("WinBarBuffers", { clear = true }),
     pattern = "*",
     callback = function()
