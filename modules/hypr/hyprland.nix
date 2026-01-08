@@ -169,6 +169,8 @@
             "workspace 3 silent, class:^discord$"
             "workspace 3 silent, class:^Slack$"
             "workspace 3 silent, class:^Spotify$"
+            "workspace 5 silent, class:^steam_app_2694490"
+            "tile, class:^steam_app_2694490"
           ];
         };
       };
