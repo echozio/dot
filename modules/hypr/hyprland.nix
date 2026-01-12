@@ -113,7 +113,8 @@
           "$mod" = lib.mkDefault "SUPER";
 
           bind = [
-            "$mod,       Q,      killactive,"
+            "$mod,       Q,      closeactive,"
+            "$mod SHIFT, Q,      forcekillactive,"
             "$mod SHIFT, Delete, exit,"
             "$mod,       F,      fullscreen,     0"
             "$mod SHIFT, F,      togglefloating,"
