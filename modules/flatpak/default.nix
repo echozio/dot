@@ -58,6 +58,10 @@
         "com.adamcake.Bolt".Environment = {
           _JAVA_AWT_WM_NONREPARENTING = "1";
         };
+
+        "org.signal.Signal".Environment = {
+          SIGNAL_PASSWORD_STORE = "gnome-libsecret";
+        };
       };
 
     packages = [
@@ -68,6 +72,7 @@
       "com.valvesoftware.Steam"
       "org.freedesktop.Platform.VulkanLayer.MangoHud//25.08"
       "org.onlyoffice.desktopeditors"
+      "org.signal.Signal"
       "xyz.tytanium.DoorKnocker"
     ];
   };
