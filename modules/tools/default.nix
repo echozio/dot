@@ -10,6 +10,7 @@
       cyme
       ddrescue
       dig
+      exiftool
       file
       inetutils
       lm_sensors
@@ -20,11 +21,13 @@
       sqlite
       tree
       unzip
+      vulkan-tools
       wdiff
       xxd
       yq-go
       yt-dlp
       zip
+      zx
     ];
   };
 }
