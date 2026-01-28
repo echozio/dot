@@ -22,7 +22,7 @@ let
         "flake.nix"
         ".git"
       ];
-      settings.nixd.formatting.command = [ (lib.getExe pkgs.nixfmt-rfc-style) ];
+      settings.nixd.formatting.command = [ (lib.getExe pkgs.nixfmt) ];
     };
 
     gopls = {
@@ -98,7 +98,7 @@ let
           lib.filterAttrs (
             _: drv:
             lib.isDerivation drv
-            && builtins.elem (builtins.head (builtins.match "^tree-sitter-(.*)-grammar$" drv.pname)) languages
+            && builtins.elem (builtins.head (builtins.match "^tree-sitter-(.*)$" drv.pname)) languages
           ) pkgs.tree-sitter-grammars
         );
       };

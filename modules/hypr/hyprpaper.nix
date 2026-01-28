@@ -4,10 +4,12 @@
 
     home-manager.users.${user}.services.hyprpaper = {
       enable = true;
-      settings = {
-        preload = [ style.wallpaper ];
-        wallpaper = [ ",${style.wallpaper}" ];
-      };
+      settings.wallpaper = [
+        {
+          monitor = "";
+          path = style.wallpaper;
+        }
+      ];
     };
   };
 }

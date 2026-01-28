@@ -160,18 +160,16 @@
           bindnir = [ ", Alt_L, sendkeystate, , Alt_L, up, class:discord" ];
 
           windowrule = [
-            "noblur, xwayland:1"
-            "workspace special:special silent, class:^kitty-special$"
-            "size 827 555, class:^kitty-special$"
-            "float, onworkspace:special:special"
-            "workspace 4 silent, class:^steam$"
-            "workspace 2 silent, class:^steam_app_[0-9]+$"
-            "workspace 5 silent, class:^firefox$"
-            "workspace 3 silent, class:^discord$"
-            "workspace 3 silent, class:^Slack$"
-            "workspace 3 silent, class:^Spotify$"
-            "workspace 5 silent, class:^steam_app_2694490"
-            "tile, class:^steam_app_2694490"
+            "no_blur on, match:xwayland 1"
+            "workspace special:special silent, size 827 555, match:class ^kitty-special$"
+            "float on, match:workspace  special:special"
+            "workspace 4 silent, match:class ^steam$"
+            "workspace 2 silent, match:class ^steam_app_[0-9]+$"
+            "workspace 5 silent, match:class ^firefox$"
+            "workspace 3 silent, match:class ^discord$"
+            "workspace 3 silent, match:class ^Slack$"
+            "workspace 3 silent, match:class ^Spotify$"
+            "workspace 5 silent, tile on, match:class ^steam_app_2694490"
           ];
         };
       };

@@ -1,5 +1,4 @@
 {
-  lib,
   config,
   pkgs,
   ...
@@ -11,7 +10,7 @@
       after = [ "zfs-import-system.service" ];
       before = [ "sysroot.mount" ];
       path = with pkgs; [
-        zfs
+        config.boot.zfs.package
         coreutils
       ];
       description = "rotate root dataset";

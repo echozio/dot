@@ -8,7 +8,7 @@
     lib.filterAttrs (path: type: type == "directory") (builtins.readDir ./.)
   );
 
-  system.stateVersion = lib.mkDefault "25.05";
+  system.stateVersion = lib.mkDefault "26.05";
 
   nixpkgs = {
     hostPlatform = lib.mkDefault "x86_64-linux";

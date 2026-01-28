@@ -37,8 +37,8 @@ in
             decoration
             animations
             ;
-          windowrule = "float, class:gtkgreet";
-          layerrule = "blur,waybar";
+          windowrule = "float on, match:class ^gtkgreet$";
+          layerrule = "blur on, match:namespace waybar";
           exec-once = "${lib.getExe pkgs.gtkgreet} -s ${pkgs.writeText "gtkgreet-style.css" ''
             window, button, entry {
               background: ${style.colors.bg.rgba};
@@ -62,12 +62,7 @@ in
 
       services.hyprpaper = {
         enable = true;
-        settings = {
-          inherit (hmUserCfg.services.hyprpaper.settings)
-            preload
-            wallpaper
-            ;
-        };
+        settings = hmUserCfg.services.hyprpaper.settings;
       };
 
       programs.waybar = {

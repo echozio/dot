@@ -1,7 +1,7 @@
 { style, user, ... }:
 {
   home-manager.users.${user} = {
-    wayland.windowManager.hyprland.settings.layerrule = [ "blur,waybar" ];
+    wayland.windowManager.hyprland.settings.layerrule = [ "blur on, match:namespace waybar" ];
 
     programs.waybar = {
       enable = true;

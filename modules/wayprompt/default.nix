@@ -6,8 +6,7 @@
 {
   home-manager.users.${user} = {
     wayland.windowManager.hyprland.settings.layerrule = [
-      "blur,wayprompt"
-      "ignorezero,wayprompt"
+      "blur on, ignore_alpha 0, match:namespace wayprompt"
     ];
 
     programs.wayprompt = {

@@ -8,8 +8,7 @@
 {
   home-manager.users.${user} = {
     wayland.windowManager.hyprland.settings.layerrule = [
-      "blur,notifications"
-      "ignorezero,notifications"
+      "blur on, ignore_alpha 0, match:namespace notifications"
     ];
 
     home.packages = [ pkgs.libnotify ];
