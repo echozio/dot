@@ -21,7 +21,7 @@ let
       })
       (fetchzip {
         url = "https://github.com/psiberx/cp2077-tweak-xl/releases/download/v1.11.3/TweakXL-1.11.3.zip";
-        hash = "sha256-8uhdgPEJtcwt3ow0/9CXqvv5ikqbzvs37CRsAbVFpj0=";
+        hash = "sha256-QotqOBPoro1DHa6cL+NDYpoiXduXltAoEl0utIGNlDc=";
         stripRoot = false;
       })
       (fetchzip {
