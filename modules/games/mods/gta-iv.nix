@@ -1,9 +1,12 @@
 {
   lib,
+  fetchzip,
   p7zip,
+  runCommand,
+  symlinkJoin,
   unrar-free,
   writeShellApplication,
-  fetchzip,
+  writeText,
 }:
 let
   fusion-fix = fetchzip {
@@ -12,12 +15,36 @@ let
     stripRoot = false;
   };
 
-  radio-restorer = fetchzip {
+  radio-restorer-release = fetchzip {
     url = "https://github.com/Tomasak/GTA-Downgraders/releases/download/iv-latest/Radio.Restoration.Mod.23-05-2025.rar";
     hash = "sha256-PpXXootagsYdFMR1EOoRS0PPijNlV6IJeFg1Ae5GLXs=";
     nativeBuildInputs = [ unrar-free ];
     stripRoot = false;
   };
+
+  radio-restorer = runCommand "radio-restorer" {
+    buildInputs = [ p7zip ];
+  } ''
+    mkdir $out && pushd $out
+    7z x ${lib.escapeShellArg radio-restorer-release}/"Resources/Radio Restorer/data1.dat" -y
+    7z x ${lib.escapeShellArg radio-restorer-release}/"Resources/Radio Restorer/opVANILLA.dat" -y
+    7z x ${lib.escapeShellArg radio-restorer-release}/"Resources/Radio Restorer/opSPLITbase.dat" -y
+    7z x ${lib.escapeShellArg radio-restorer-release}/"Resources/Radio Restorer/opSPLITVANILLA.dat" -y
+  '';
+
+  mods = symlinkJoin {
+    name = "gta-iv-mods";
+    paths = [
+      fusion-fix
+      radio-restorer
+    ];
+  };
+
+  help = writeText "gta-iv-mods-info" ''
+    Remember to add to launch options:
+
+    WINEDLLOVERRIDES="dinput8=n,b" %command%
+  '';
 in
 writeShellApplication {
   name = "install-mods-gta-iv";
@@ -31,10 +58,7 @@ writeShellApplication {
       printf "Defaulting to: %s\n" "$out" >&2
     fi
     pushd "$out"
-    cp -vr --no-preserve=all ${lib.escapeShellArg fusion-fix}/. .
-    7z x ${lib.escapeShellArg radio-restorer}/"Resources/Radio Restorer/data1.dat" -y
-    7z x ${lib.escapeShellArg radio-restorer}/"Resources/Radio Restorer/opVANILLA.dat" -y
-    7z x ${lib.escapeShellArg radio-restorer}/"Resources/Radio Restorer/opSPLITbase.dat" -y
-    7z x ${lib.escapeShellArg radio-restorer}/"Resources/Radio Restorer/opSPLITVANILLA.dat" -y
+    cp -vriL --no-preserve=mode ${mods}/. .
+    cat ${help}
   '';
 }
