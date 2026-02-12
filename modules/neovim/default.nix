@@ -74,6 +74,23 @@ let
       ];
     };
 
+    basedpyright = {
+      cmd = [
+        (lib.getExe' pkgs.basedpyright "basedpyright-langserver")
+        "--stdio"
+      ];
+      filetypes = [ "python" ];
+      root_markers = [
+        "pyrightconfig.json"
+        "pyproject.toml"
+        "setup.py"
+        ".git"
+      ];
+      settings.basedpyright = {
+        analysis.typeCheckingMode = "basic";
+      };
+    };
+
     lua-language-server = {
       cmd = [ (lib.getExe pkgs.lua-language-server) ];
       filetypes = [ "lua" ];
