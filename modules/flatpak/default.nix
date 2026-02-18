@@ -74,6 +74,7 @@
       "org.onlyoffice.desktopeditors"
       "org.signal.Signal"
       "xyz.tytanium.DoorKnocker"
+      "com.github.Matoking.protontricks"
     ];
   };
 
