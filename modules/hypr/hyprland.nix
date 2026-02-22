@@ -33,8 +33,8 @@
 
           general = {
             gaps_in = 5;
-            gaps_out = 20;
-            border_size = 2;
+            gaps_out = 10;
+            border_size = 0;
             "col.active_border" = "rgba(00000000) ${style.colors.fg.rgbaHex} rgba(00000000) 45deg";
             "col.inactive_border" = "rgba(00000000)";
             layout = "dwindle";
@@ -49,6 +49,9 @@
               passes = 3;
               new_optimizations = true;
             };
+            dim_inactive = true;
+            dim_strength = 0.1;
+            dim_special = 0.1;
           };
 
           animations = {

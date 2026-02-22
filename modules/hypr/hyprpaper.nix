@@ -1,15 +1,12 @@
 { style, user, ... }:
 {
-  config = {
-
-    home-manager.users.${user}.services.hyprpaper = {
-      enable = true;
-      settings.wallpaper = [
-        {
-          monitor = "";
-          path = style.wallpaper;
-        }
-      ];
-    };
+  home-manager.users.${user}.services.hyprpaper = {
+    enable = true;
+    settings.wallpaper = [
+      {
+        monitor = "";
+        path = style.wallpaper;
+      }
+    ];
   };
 }
