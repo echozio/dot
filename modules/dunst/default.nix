@@ -9,7 +9,7 @@
   home-manager.users.${user} = {
     wayland.windowManager.hyprland.settings = {
       bind = [ "$mod, Grave, exec, uwsm app -- dunstctl history-pop" ];
-      layerrule = [ "blur on, ignore_alpha 0, match:namespace notifications"];
+      layerrule = [ "blur on, ignore_alpha 0, match:namespace notifications" ];
     };
 
     home.packages = [ pkgs.libnotify ];

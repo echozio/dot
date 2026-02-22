@@ -22,15 +22,18 @@ let
     stripRoot = false;
   };
 
-  radio-restorer = runCommand "radio-restorer" {
-    buildInputs = [ p7zip ];
-  } ''
-    mkdir $out && pushd $out
-    7z x ${lib.escapeShellArg radio-restorer-release}/"Resources/Radio Restorer/data1.dat" -y
-    7z x ${lib.escapeShellArg radio-restorer-release}/"Resources/Radio Restorer/opVANILLA.dat" -y
-    7z x ${lib.escapeShellArg radio-restorer-release}/"Resources/Radio Restorer/opSPLITbase.dat" -y
-    7z x ${lib.escapeShellArg radio-restorer-release}/"Resources/Radio Restorer/opSPLITVANILLA.dat" -y
-  '';
+  radio-restorer =
+    runCommand "radio-restorer"
+      {
+        buildInputs = [ p7zip ];
+      }
+      ''
+        mkdir $out && pushd $out
+        7z x ${lib.escapeShellArg radio-restorer-release}/"Resources/Radio Restorer/data1.dat" -y
+        7z x ${lib.escapeShellArg radio-restorer-release}/"Resources/Radio Restorer/opVANILLA.dat" -y
+        7z x ${lib.escapeShellArg radio-restorer-release}/"Resources/Radio Restorer/opSPLITbase.dat" -y
+        7z x ${lib.escapeShellArg radio-restorer-release}/"Resources/Radio Restorer/opSPLITVANILLA.dat" -y
+      '';
 
   mods = symlinkJoin {
     name = "gta-iv-mods";

@@ -13,7 +13,8 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  disko.devices.disk.system.device = "/dev/disk/by-id/nvme-nvme.144d-533637564e463154413134303934-53414d53554e47204d5a564c3435313248424c552d3030424c37-00000001";
+  disko.devices.disk.system.device =
+    "/dev/disk/by-id/nvme-nvme.144d-533637564e463154413134303934-53414d53554e47204d5a564c3435313248424c552d3030424c37-00000001";
 
   networking = {
     hostName = "tp";
@@ -32,12 +33,19 @@
 
   systemd.services.ModemManager = {
     enable = true;
-    wantedBy = [ "multi-user.target" "network.target" ];
+    wantedBy = [
+      "multi-user.target"
+      "network.target"
+    ];
   };
 
   boot = {
     initrd.availableKernelModules = [
-      "xhci_pci" "thunderbolt" "nvme" "uas" "sd_mod"
+      "xhci_pci"
+      "thunderbolt"
+      "nvme"
+      "uas"
+      "sd_mod"
     ];
     kernelModules = [ "kvm-intel" ];
   };
