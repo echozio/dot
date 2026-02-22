@@ -10,7 +10,7 @@
 
     wayland.windowManager.hyprland.settings = {
       bind = [ "$mod, Escape, exec, uwsm app -- walker" ];
-      layerrule = [ "blur on, ignore_alpha 0, match:namespace walker" ];
+      layerrule = [ "blur on, ignore_alpha 0, dim_around on, match:namespace walker" ];
     };
 
     programs.walker = {
