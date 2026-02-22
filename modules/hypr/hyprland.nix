@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
 
   style,
   user,
@@ -160,8 +161,8 @@
             "$mod, mouse:273, resizewindow"
           ];
 
-          bindni = [ ", Alt_L, sendkeystate, , Alt_L, down, class:discord" ];
-          bindnir = [ ", Alt_L, sendkeystate, , Alt_L, up, class:discord" ];
+          bindpunti = [ ", Alt_L, exec, ${lib.getExe pkgs.pamixer} --default-source --unmute" ];
+          bindpuntir = [ ", Alt_L, exec, ${lib.getExe pkgs.pamixer} --default-source --mute" ];
 
           windowrule = [
             "no_blur on, match:xwayland 1"
