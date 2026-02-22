@@ -50,8 +50,9 @@
               new_optimizations = true;
             };
             dim_inactive = true;
-            dim_strength = 0.1;
-            dim_special = 0.1;
+            dim_strength = 0.2;
+            dim_special = 0.2;
+            dim_around = 0.2;
           };
 
           animations = {
