@@ -7,9 +7,10 @@
 }:
 {
   home-manager.users.${user} = {
-    wayland.windowManager.hyprland.settings.layerrule = [
-      "blur on, ignore_alpha 0, match:namespace notifications"
-    ];
+    wayland.windowManager.hyprland.settings = {
+      bind = [ "$mod, Grave, exec, uwsm app -- dunstctl history-pop" ];
+      layerrule = [ "blur on, ignore_alpha 0, match:namespace notifications"];
+    };
 
     home.packages = [ pkgs.libnotify ];
 
@@ -20,9 +21,9 @@
           follow = "mouse";
           alignment = "center";
           width = 500;
-          height = "(36, 180)";
+          height = "(42, 180)";
           origin = "top-center";
-          offset = "(0, 0)";
+          offset = "(0, 10)";
           corner_radius = 10;
           corners = "bottom";
           padding = 12;
@@ -37,7 +38,8 @@
           transparency = 0;
           separator_height = 0;
           fullscreen = "show";
-          layer = "top";
+          layer = "overlay";
+          show_age_threshold = 60;
         };
 
         urgency_low = {

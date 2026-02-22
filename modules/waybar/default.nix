@@ -1,7 +1,9 @@
 { style, user, ... }:
 {
   home-manager.users.${user} = {
-    wayland.windowManager.hyprland.settings.layerrule = [ "blur on, match:namespace waybar" ];
+    wayland.windowManager.hyprland.settings.layerrule = [
+      "blur on, ignore_alpha 0, match:namespace waybar"
+    ];
 
     programs.waybar = {
       enable = true;
@@ -11,7 +13,10 @@
         mainBar = {
           layer = "top";
           position = "top";
-          height = 36;
+          margin-left = 10;
+          margin-right = 10;
+          margin-top = 10;
+          height = 42;
           modules-left = [
             "hyprland/workspaces"
             "hyprland/window"
@@ -86,13 +91,17 @@
       style = ''
         * {
           border: none;
-          border-radius: 0;
           font-family: ${style.fonts.mono.family};
           font-size: 12pt;
         }
 
+        box.module {
+          margin: 10px;
+        }
+
         window#waybar {
           border: none;
+          border-radius: 10px;
           color: #${style.colors.fg.hex};
           background: ${style.colors.bg.rgba};
         }
@@ -110,22 +119,37 @@
           padding-right: 10px;
         }
 
-        #workspaces button {
-          color: #${style.colors.fg.hex};
-          transition: box-shadow 0.1s linear;
+        #workspaces box {
+          min-height: 5px;
         }
 
-        #workspaces button:hover {
-          background: inherit;
-          box-shadow: inset 0px 2px #${style.colors.fg.hex};
+        #workspaces button, #workspaces button:hover, #workspaces button.active, #workspaces button.empty {
+          box-shadow: inherit;
           text-shadow: inherit;
+          background: transparent;
+          padding: 0 5px;
         }
 
-        #workspaces button.active {
-          box-shadow: inset 0px 2px #${style.colors.fg.hex};
+        #workspaces button label {
+          color: #${style.colors.fg.hex};
+          transition: background 0.1s linear;
+          border-radius: 50%;
+          min-height: 22px;
+          min-width: 22px;
+          border-radius: 50%;
         }
 
-        #workspaces button.empty {
+        #workspaces button:hover label {
+          background: #${style.colors.fg.hex};
+          color: #${style.colors.bg.hex};
+        }
+
+        #workspaces button.active label {
+          background: #${style.colors.fg.hex};
+          color: #${style.colors.bg.hex};
+        }
+
+        #workspaces button.empty label {
           color: #${style.colors.lo.hex};
         }
       '';

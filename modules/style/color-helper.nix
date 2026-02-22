@@ -1,6 +1,6 @@
 lib: r: g: b: a:
 let
-  s = builtins.toString;
+  s = toString;
   toUnsignedInt = n: lib.toInt (builtins.head (builtins.match "^([0-9]*).*$" (builtins.toString n)));
   toHex = n: builtins.head (builtins.match "^.*(.{2})$" "0${lib.toHexString (toUnsignedInt n)}");
   xr = toHex r;
