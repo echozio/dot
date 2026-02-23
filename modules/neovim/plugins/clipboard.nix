@@ -1,6 +1,6 @@
 {
   programs.neovim.customPlugins.clipboard = {
-    "plugin/clipboard.nix" = # lua
+    "plugin/clipboard.lua" = # lua
       ''
         vim.keymap.set({'n','v'}, '<C-c>', '"+y')
         vim.keymap.set({'n','v'}, '<C-v>', '"+p')
