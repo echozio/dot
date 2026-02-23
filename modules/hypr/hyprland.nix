@@ -93,13 +93,23 @@
             "col.border_locked_inactive" = "rgba(00000000)";
 
             groupbar = {
-              render_titles = false;
-              gaps_in = 1;
-              gaps_out = 5;
-              indicator_height = 4;
-              rounding = 2;
-              "col.active" = style.colors.fg.rgbaHex;
-              "col.inactive" = style.colors.lo.rgbaHex;
+              render_titles = true;
+              font_family = style.fonts.mono.family;
+              font_size = 16;
+              text_offset = 0;
+              gaps_in = 10;
+              gaps_out = 10;
+              keep_upper_gap = false;
+              height = 44;
+              indicator_height = 0;
+              gradients = true;
+              gradient_rounding = 10;
+              gradient_round_only_edges = false;
+              "col.active" = style.colors.bg.rgbaHex;
+              "col.inactive" = style.colors.bg.rgbaHex;
+              text_color = style.colors.fg.rgbaHex;
+              text_color_inactive = style.colors.lo.rgbaHex;
+              blur = true;
             };
           };
 
@@ -176,6 +186,7 @@
           bindpuntir = [ ", Alt_L, exec, ${lib.getExe pkgs.pamixer} --default-source --mute" ];
 
           windowrule = [
+            "animation popin 100%, match:group on"
             "workspace 4 silent, match:class ^steam$"
             "workspace 2 silent, match:class ^steam_app_[0-9]+$"
             "workspace 5 silent, match:class ^firefox$"
