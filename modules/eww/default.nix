@@ -22,7 +22,7 @@ let
       :stacking "overlay"
       :focusable "none"
       :namespace "microphone-indicator"
-      :geometry (geometry :y "10px" :width "0px" :height "0px" :anchor "bottom center")
+      :geometry (geometry :y "10px" :width "0px" :height "0px" :anchor "top center")
       (microphone-indicator))
 
     (deflisten microphone-muted
@@ -43,11 +43,13 @@ let
     pkgs.writeTextDir "/eww.scss" ''
       .microphone-indicator {
         color: ${fg};
-        font-size: 80px;
-        min-width: 60px;
+        font-size: 32px;
+        min-width: 44px;
+        min-height: 44px;
 
         &.background {
-          background: transparent;
+          background: ${style.colors.bg.rgba};
+          border-radius: 10px;
         }
       }
     '';
