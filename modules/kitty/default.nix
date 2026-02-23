@@ -21,6 +21,7 @@
         window_padding_width = 10;
         disable_ligatures = false;
         confirm_os_window_close = 0;
+        remember_window_size = false;
       }
       // (with style.colors; {
         foreground = "#${fg.hex}";
@@ -35,7 +36,7 @@
         url_color = "#${url.hex}";
       })
       // builtins.mapAttrs (_: c: "#${c.hex}") (
-        lib.getAttrs (builtins.genList (n: "color${builtins.toString n}") 16) style.colors
+        lib.getAttrs (builtins.genList (n: "color${toString n}") 16) style.colors
       );
     };
   };
