@@ -16,7 +16,7 @@
           margin-left = 10;
           margin-right = 10;
           margin-top = 10;
-          height = 42;
+          height = 44;
           modules-left = [
             "hyprland/workspaces"
             "hyprland/window"
@@ -134,8 +134,8 @@
           color: #${style.colors.fg.hex};
           transition: background 0.1s linear;
           border-radius: 50%;
-          min-height: 22px;
-          min-width: 22px;
+          min-height: 24px;
+          min-width: 24px;
           border-radius: 50%;
         }
 
