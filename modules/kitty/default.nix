@@ -22,6 +22,8 @@
         disable_ligatures = false;
         confirm_os_window_close = 0;
         remember_window_size = false;
+        initial_window_width = "80c";
+        initial_window_height = "24c";
       }
       // (with style.colors; {
         foreground = "#${fg.hex}";
