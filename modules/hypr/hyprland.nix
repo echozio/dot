@@ -112,7 +112,16 @@
           };
 
           workspace = (builtins.genList (n: "${toString (n + 1)}, persistent:true") 9) ++ [
-            "special:special, on-created-empty:kitty --class kitty-special"
+            "special:special, on-created-empty:${
+              pkgs.writeShellScript "init-empty-special-workspace" ''
+                settings=(
+                  "--override" "initial_window_width=160c"
+                  "--override" "initial_window_height=48c"
+                )
+                hyprctl dispatch exec "[workspace special:special; group new; float] uwsm app -- kitty ''${settings[*]}"
+                hyprctl dispatch exec "[workspace special:special; group; float] uwsm app -- kitty ''${settings[*]} btop"
+              ''
+            }"
           ];
 
           "$mod" = lib.mkDefault "SUPER";
@@ -142,7 +151,8 @@
             "$mod, 7, workspace, 7"
             "$mod, 8, workspace, 8"
             "$mod, 9, workspace, 9"
-            "$mod, 0, togglespecialworkspace"
+
+            "$mod, Tab, togglespecialworkspace"
 
             "$mod SHIFT, 1, movetoworkspacesilent, 1"
             "$mod SHIFT, 2, movetoworkspacesilent, 2"
@@ -153,7 +163,8 @@
             "$mod SHIFT, 7, movetoworkspacesilent, 7"
             "$mod SHIFT, 8, movetoworkspacesilent, 8"
             "$mod SHIFT, 9, movetoworkspacesilent, 9"
-            "$mod SHIFT, 0, movetoworkspacesilent, special:special"
+
+            "$mod SHIFT, Tab, movetoworkspacesilent, special:special"
           ];
 
           bindm = [
@@ -165,9 +176,6 @@
           bindpuntir = [ ", Alt_L, exec, ${lib.getExe pkgs.pamixer} --default-source --mute" ];
 
           windowrule = [
-            "no_blur on, match:xwayland 1"
-            "workspace special:special silent, size 827 555, match:class ^kitty-special$"
-            "float on, match:workspace  special:special"
             "workspace 4 silent, match:class ^steam$"
             "workspace 2 silent, match:class ^steam_app_[0-9]+$"
             "workspace 5 silent, match:class ^firefox$"
