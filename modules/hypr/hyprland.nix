@@ -122,14 +122,13 @@
           };
 
           workspace = (builtins.genList (n: "${toString (n + 1)}, persistent:true") 9) ++ [
-            "special:special, on-created-empty:${
+            "special:special, on-created-empty:[workspace special:special; float] ${
               pkgs.writeShellScript "init-empty-special-workspace" ''
                 settings=(
                   "--override" "initial_window_width=160c"
                   "--override" "initial_window_height=48c"
                 )
-                hyprctl dispatch exec "[workspace special:special; group new; float] uwsm app -- kitty ''${settings[*]}"
-                hyprctl dispatch exec "[workspace special:special; group; float] uwsm app -- kitty ''${settings[*]} btop"
+                uwsm app -- kitty "''${settings[@]}" btop
               ''
             }"
           ];
@@ -187,6 +186,7 @@
 
           windowrule = [
             "animation popin 100%, match:group on"
+            "float on, match:workspace special:special"
             "workspace 4 silent, match:class ^steam$"
             "workspace 2 silent, match:class ^steam_app_[0-9]+$"
             "workspace 5 silent, match:class ^firefox$"
