@@ -67,7 +67,7 @@ in
     { config, ... }:
     {
       wayland.windowManager.hyprland.settings.layerrule = [
-        "blur on, ignore_alpha 0, no_anim on, match:namespace microphone-indicator"
+        "blur on, ignore_alpha 0.19, no_anim on, match:namespace microphone-indicator"
       ];
 
       programs.eww = {
