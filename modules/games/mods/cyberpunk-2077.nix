@@ -3,6 +3,7 @@
   symlinkJoin,
   writeShellApplication,
   writeText,
+  writeTextDir,
 }:
 let
   mods = symlinkJoin {
@@ -53,6 +54,9 @@ let
         hash = "sha256-LD3MAENqkP6GHk3eYjGnEkzFlqPePE80X76QN4fspR8=";
         stripRoot = false;
       })
+      (writeTextDir "/bin/x64/plugins/cyber_engine_tweaks/mods/utils/init.lua" (
+        builtins.readFile ./cyberpunk-2077-utils.lua
+      ))
     ];
   };
 
