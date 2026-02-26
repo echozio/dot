@@ -40,6 +40,7 @@
   };
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_lqx;
     initrd.availableKernelModules = [
       "xhci_pci"
       "thunderbolt"
