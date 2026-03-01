@@ -37,7 +37,7 @@
             (closureInfo: builtins.readFile "${closureInfo}/store-paths")
             (lib.splitString "\n")
             (builtins.filter (p: p != ""))
-            (builtins.map (p: "${p}:ro"))
+            (map (p: "${p}:ro"))
           ];
       in
       {
@@ -71,6 +71,7 @@
       "com.spotify.Client"
       "com.valvesoftware.Steam"
       "org.freedesktop.Platform.VulkanLayer.MangoHud//25.08"
+      "org.freedesktop.Platform.VulkanLayer.gamescope//25.08"
       "org.onlyoffice.desktopeditors"
       "org.signal.Signal"
       "xyz.tytanium.DoorKnocker"
