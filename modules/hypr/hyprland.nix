@@ -46,9 +46,9 @@
             shadow.enabled = false;
             blur = {
               enabled = true;
-              size = 9;
+              size = 5;
               passes = 3;
-              new_optimizations = true;
+              noise = 0.03333;
             };
             dim_inactive = true;
             dim_strength = 0.2;
@@ -67,8 +67,8 @@
             animation = [
               "windows,     1, 2,   linear"
               "windowsOut,  1, 2,   linear"
-              "border,      1, 2,   linear"
-              "borderangle, 1, 100, linear, loop"
+              # "border,      1, 2,   linear"
+              # "borderangle, 1, 100, linear, loop"
               "fade,        1, 2,   linear"
               "workspaces,  1, 2,   linear"
             ];
