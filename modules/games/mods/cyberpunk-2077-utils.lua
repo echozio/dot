@@ -53,6 +53,8 @@ Utils.Mods = {
   SwissCheese = function() Game.AddToInventory("Items.PowerMod2_Legendary") end,
   Parallax = function() Game.AddToInventory("Items.HGMod3_X") end,
   ZeroG = function() Game.AddToInventory("Items.ThrowMod2_Legendary") end,
+  Vivisector = function() Game.AddToInventory("Items.ShotgunMod1_Legendary") end,
+  Kneel = function() Game.AddToInventory("Items.ShotgunMod2_Legendary") end,
 }
 
 Utils.Money = function(amount)
