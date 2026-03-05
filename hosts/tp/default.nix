@@ -19,7 +19,24 @@
   networking = {
     hostName = "tp";
     hostId = "4a2e8151";
-    networkmanager.enable = true;
+
+    networkmanager = {
+      enable = true;
+      ensureProfiles.profiles.wwan = {
+        connection = {
+          id = "wwan";
+          type = "gsm";
+          interface-name = "cdc-wdm0";
+        };
+        gsm.apn = "internet";
+        ipv4.method = "auto";
+        ipv6 = {
+          method = "auto";
+          addr-gen-mode = "stable-privacy";
+        };
+      };
+    };
+
     modemmanager = {
       enable = true;
       fccUnlockScripts = [
