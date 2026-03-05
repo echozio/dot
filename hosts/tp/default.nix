@@ -55,8 +55,6 @@
   hardware = {
     enableAllFirmware = true;
     cpu.intel.updateMicrocode = true;
-
-    bluetooth.enable = true;
   };
 
   home-manager.users.${user} = {
