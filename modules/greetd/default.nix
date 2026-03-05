@@ -76,6 +76,9 @@ in
             inherit (hmUserCfg.programs.waybar.settings.mainBar)
               layer
               position
+              margin-left
+              margin-right
+              margin-top
               height
               "clock#date"
               "clock"
