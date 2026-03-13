@@ -12,6 +12,6 @@
 
   home-manager.users.${user}.home.packages = [
     pkgs.pulsemixer
-    pkgs.helvum
+    pkgs.crosspipe
   ];
 }
