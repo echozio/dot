@@ -1,6 +1,5 @@
 {
   lib,
-  config,
   ...
 }:
 {
@@ -28,4 +27,6 @@
   security.sudo.extraConfig = ''
     Defaults lecture = never
   '';
+
+  boot.loader.systemd-boot.configurationLimit = 24;
 }
