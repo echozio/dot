@@ -57,8 +57,6 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_lqx;
-    zfs.package = pkgs.zfs_2_4;
     initrd.availableKernelModules = [
       "xhci_pci"
       "thunderbolt"
