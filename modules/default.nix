@@ -28,5 +28,5 @@
     Defaults lecture = never
   '';
 
-  boot.loader.systemd-boot.configurationLimit = 24;
+  boot.loader.systemd-boot.configurationLimit = 20;
 }
