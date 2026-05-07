@@ -24,12 +24,12 @@
         containersForce = true;
         containers = {
           personal = {
-            id = 0;
+            id = 1;
             color = "green";
             icon = "fingerprint";
           };
           work = {
-            id = 1;
+            id = 2;
             color = "blue";
             icon = "briefcase";
           };
