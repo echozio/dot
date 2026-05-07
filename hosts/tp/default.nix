@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   modulesPath,
 
   sec,
@@ -22,18 +23,55 @@
 
     networkmanager = {
       enable = true;
-      ensureProfiles.profiles.wwan = {
-        connection = {
-          id = "wwan";
-          type = "gsm";
-          interface-name = "cdc-wdm0";
+      ensureProfiles = {
+        profiles = {
+          "fw01.isx.inl1.echoz.io" = {
+            connection = {
+              id = "fw01.isx.inl1.echoz.io";
+              type = "wireguard";
+              autoconnect = true;
+              interface-name = "wg0";
+            };
+
+            "wireguard-peer.uoeLveuevSLe6pkIvMryLOr2RVM3qcarSNn0OfNcIUA=" = {
+              endpoint = "fw01.isx.inl1.echoz.io:51820";
+              presistent-keepalive = 25;
+              allowed-ips = "0.0.0.0/0";
+            };
+
+            ipv4 = {
+              method = "manual";
+              address1 = "10.200.100.104/24";
+              dns = "10.120.120.101";
+              dns-search = "lan.inl1.echoz.io";
+            };
+
+            ipv6.method = "disabled";
+          };
+
+          wwan = {
+            connection = {
+              id = "wwan";
+              type = "gsm";
+              interface-name = "cdc-wdm0";
+            };
+            gsm.apn = "internet";
+            ipv4.method = "auto";
+            ipv6 = {
+              method = "auto";
+              addr-gen-mode = "stable-privacy";
+            };
+          };
         };
-        gsm.apn = "internet";
-        ipv4.method = "auto";
-        ipv6 = {
-          method = "auto";
-          addr-gen-mode = "stable-privacy";
-        };
+
+        secrets.entries = [
+          {
+            file = config.sops.secrets."wireguard.key".path;
+            key = "private-key";
+            matchIface = "wg0";
+            matchSetting = "wireguard";
+          }
+        ];
       };
     };
 
@@ -47,6 +85,8 @@
       ];
     };
   };
+
+  sops.secrets."wireguard.key" = { };
 
   systemd.services.ModemManager = {
     enable = true;
