@@ -34,16 +34,6 @@
     withPython3 = lib.mkDefault false;
     withNodeJs = lib.mkDefault false;
 
-    package = pkgs.neovim-unwrapped.overrideAttrs {
-      version = "v0.12.0-dev";
-      src = pkgs.fetchFromGitHub {
-        owner = "neovim";
-        repo = "neovim";
-        rev = "ea3942f222789c0ad16befc61071f883052d8099";
-        hash = "sha256-d5KmAKiqhiXtfQDTzlp0Ci7s0hkX4pfA0KTXora8LEk=";
-      };
-    };
-
     configure.packages.plugins.start =
       let
         writeVimPlugin =
