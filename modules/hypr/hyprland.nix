@@ -191,8 +191,9 @@
             "workspace 2 silent, match:class ^steam_app_[0-9]+$"
             "workspace 5 silent, match:class ^firefox$"
             "workspace 3 silent, match:class ^discord$"
-            "workspace 3 silent, match:class ^Slack$"
+            "workspace 3 silent, match:class ^com.slack.Slack$"
             "workspace 3 silent, match:class ^spotify$"
+            "workspace 3 silent, match:class ^org.signal.Signal$"
             "workspace 5 silent, tile on, match:class ^steam_app_2694490"
           ];
         };
