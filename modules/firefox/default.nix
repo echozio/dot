@@ -6,7 +6,7 @@
 
   environment.persistence."/fix".users.${user}.directories = [
     {
-      directory = ".mozilla";
+      directory = ".config/mozilla/firefox";
       mode = "0700";
     }
   ];
