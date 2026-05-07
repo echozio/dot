@@ -1,4 +1,5 @@
-style: ''
+style: # css
+''
   @-moz-document url(chrome://browser/content/browser.xul), url(chrome://browser/content/browser.xhtml) {
     #browser {
       background-color: ${style.colors.bg.rgba} !important;
