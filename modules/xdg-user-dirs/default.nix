@@ -20,6 +20,7 @@
       music = "${tilde}/mus";
       pictures = "${tilde}/pic";
       videos = "${tilde}/vid";
+      projects = "${tilde}/pro";
 
       # some non-standard ones that should be there
       extraConfig = {
@@ -56,5 +57,6 @@
         "sec"
         "srv"
         "vid"
+        "pro"
       ];
 }
