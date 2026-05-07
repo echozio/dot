@@ -33,6 +33,7 @@
 
     sops.secrets.password.neededForUsers = true;
 
+    home-manager.verbose = true;
     home-manager.users.${user} = {
       home.stateVersion = lib.mkDefault config.system.stateVersion;
     };
