@@ -4,7 +4,10 @@
     boot = {
       initrd.systemd.enable = true;
 
-      zfs.devNodes = builtins.dirOf config.disko.devices.disk.system.device;
+      zfs = {
+        devNodes = dirOf config.disko.devices.disk.system.device;
+        forceImportRoot = false;
+      };
 
       loader = {
         systemd-boot.enable = true;
