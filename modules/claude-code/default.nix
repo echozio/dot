@@ -29,5 +29,10 @@
         url = "https://mcp.stafftastic.com/mcp/http";
       };
     };
+
+    home.file.".claude/settings.json" = {
+      mutable = true;
+      force = true;
+    };
   };
 }
