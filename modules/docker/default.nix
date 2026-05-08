@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   virtualisation.docker.rootless = {
     enable = true;
@@ -5,6 +6,12 @@
     daemon.settings = {
       features.containerd-snapshotter = true;
     };
+    extraPackages = [ pkgs.passt ];
+  };
+
+  systemd.user.services.docker.environment = {
+    DOCKERD_ROOTLESS_ROOTLESSKIT_NET = "pasta";
+    DOCKERD_ROOTLESS_ROOTLESSKIT_PORT_DRIVER = "implicit";
   };
 
   boot = {
