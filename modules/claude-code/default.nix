@@ -20,9 +20,14 @@
           enabled = true;
           filesystem = {
             denyRead = [ "/" ];
-            allowRead = [ "/nix/store" ];
+            allowRead = [
+              "/nix/store"
+              "/run/current-system"
+            ];
           };
         };
+        effortLevel = "medium";
+        model = "opusplan";
       };
       mcpServers.agentgateway = {
         type = "http";
