@@ -86,7 +86,7 @@ in
               battery
               cpu
               memory
-              disk
+              "custom/disk"
               ;
             modules-center = [
               "clock#date"
@@ -97,7 +97,7 @@ in
               "battery"
               "cpu"
               "memory"
-              "disk"
+              "custom/disk"
             ];
           };
         };

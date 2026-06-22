@@ -1,4 +1,4 @@
-{ style, user, ... }:
+{ style, user, lib, ... }:
 {
   home-manager.users.${user} = {
     wayland.windowManager.hyprland.settings.layerrule = [
@@ -30,7 +30,7 @@
             "battery"
             "cpu"
             "memory"
-            "disk"
+            "custom/disk"
             "tray"
           ];
           "hyprland/workspaces" = {
@@ -44,41 +44,50 @@
           };
           clock = {
             interval = 1;
-            format = " {:%I:%M:%S %p}";
+            format = "󰅐 {:%I:%M:%S %p}";
           };
           "clock#utc" = {
             interval = 1;
-            format = " {:%I:%M:%S %p}";
+            format = "󰖟 {:%I:%M:%S %p}";
             timezone = "UTC";
           };
           cpu = {
             interval = 1;
-            format = " {usage}%";
+            format = " {usage}% {max_frequency:.1f} GHz, ";
           };
           memory = {
             interval = 1;
-            format = " {percentage}%";
+            format = "{used:.1f}/{total:.1f} GiB";
           };
-          disk = {
+          "custom/disk" = {
             interval = 1;
-            format = " {percentage_used}%";
-            path = "/";
+            format = "󰉉 {}%";
+            exec = "zpool get -Hpovalue capacity system";
           };
           battery = {
-            bat = "BAT0";
+            bat = lib.mkDefault "BAT0";
             interval = 1;
             states = {
               warning = 20;
               critical = 10;
             };
             format = "{icon} {capacity}%";
-            format-icons = [
-              ""
-              ""
-              ""
-              ""
-              ""
-            ];
+            format-icons = {
+              default = [
+                " "
+                " "
+                " "
+                " "
+                " "
+              ];
+              charging = [
+                " "
+                " "
+                " "
+                " "
+                " "
+              ];
+            };
             tooltip-format = "{timeTo}";
           };
           tray = {
@@ -151,6 +160,14 @@
 
         #workspaces button.empty label {
           color: #${style.colors.lo.hex};
+        }
+
+        #cpu {
+          padding-right: 0;
+        }
+
+        #memory {
+          padding-left: 0;
         }
       '';
     };
