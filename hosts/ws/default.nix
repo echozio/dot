@@ -1,6 +1,7 @@
 {
   modulesPath,
   sec,
+  user,
   ...
 }:
 {
@@ -72,4 +73,6 @@
       ensureDefaultPrinter = "cs410n";
     };
   };
+
+  home-manager.users.${user}.programs.waybar.settings.mainBar.battery.bat = "hidpp_battery_0";
 }
