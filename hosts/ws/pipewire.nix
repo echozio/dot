@@ -3,6 +3,13 @@
   ...
 }:
 {
+  services.pipewire.extraConfig.pipewire.default = {
+    "context.properties" = {
+      "default.clock.rate" = 44100;
+      "default.clock.allowed-rates" = [ 44100 ];
+    };
+  };
+
   services.pipewire.wireplumber.extraConfig = {
     general = {
       "wireplumber.settings" = {
