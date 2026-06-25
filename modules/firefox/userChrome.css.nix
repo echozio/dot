@@ -67,5 +67,9 @@ style: # css
     stack.tab-icon-stack {
       display: none;
     }
+
+    tabs#tabbrowser-tabs::before {
+      display: none !important;
+    }
   }
 ''
