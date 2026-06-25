@@ -20,6 +20,7 @@
         enable = true;
         package = null;
         portalPackage = null;
+        configType = "hyprlang";
         settings = {
           monitor = [ ",preferred,auto,1" ];
 

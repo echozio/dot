@@ -27,6 +27,7 @@ in
         enable = true;
         package = null;
         portalPackage = null;
+        configType = "hyprlang";
         settings = {
           inherit (hmUserCfg.wayland.windowManager.hyprland.settings)
             monitor
