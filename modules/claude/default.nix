@@ -24,15 +24,26 @@
         settings = {
           permissions = {
             allow = [
-              "Read(//nix/store*)"
+              "Read(//nix/store/*)"
             ];
           };
           sandbox = {
             enabled = true;
+            excludedCommands = [
+              "nix *"
+              "gh *"
+              "git push"
+              "git push *"
+              "git pull"
+              "git pull *"
+              "git commit *"
+              "git fetch"
+              "git fetch *"
+            ];
             filesystem = {
               denyRead = [ "/" ];
               allowRead = [
-                "/nix/store"
+                "/nix"
                 "/run/current-system"
               ];
             };
