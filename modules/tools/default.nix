@@ -12,7 +12,9 @@
       dig
       exiftool
       file
+      google-cloud-sdk
       inetutils
+      jq
       lm_sensors
       nmap
       p7zip
