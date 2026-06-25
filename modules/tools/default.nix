@@ -18,6 +18,7 @@
       lm_sensors
       nmap
       p7zip
+      riffdiff
       scc
       sc-im
       sqlite
