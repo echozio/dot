@@ -7,6 +7,12 @@ user_pref("general.autoScroll", true);
 // Don't navigate history with alt+scroll
 user_pref("mousewheel.with_alt.action", 1);
 
+// Don't go full screen when sites request it
+user_pref("full-screen-api.ignore-widgets", true);
+
+// Disable full screen nag
+user_pref("full-screen-api.warning.timeout", 0);
+
 // Enable browser toolbox
 user_pref("devtools.chrome.enabled", true);
 user_pref("devtools.debugger.remote-enabled", true);
