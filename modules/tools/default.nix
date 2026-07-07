@@ -8,6 +8,7 @@
     systemPackages = with pkgs; [
       bat
       cyme
+      d2
       ddrescue
       dig
       exiftool

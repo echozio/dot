@@ -1,7 +1,27 @@
 { pkgs, ... }:
 {
   programs.neovim.plugins = [
-    (pkgs.vimPlugins.nvim-treesitter.withAllGrammars // { runtimeDeps = [ pkgs.tree-sitter ]; })
+    (
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins (
+        _:
+        pkgs.vimPlugins.nvim-treesitter.allGrammars
+        ++ [
+          (pkgs.tree-sitter.buildGrammar rec {
+            language = "d2";
+            version = "0.7.2";
+            src = pkgs.fetchFromGitHub {
+              owner = "ravsii";
+              repo = "tree-sitter-d2";
+              tag = "v${version}";
+              hash = "sha256-zx6ud3uh+0Z+cYdP2KkFA27Kb6fW/CSGpC1C4YmCIo0=";
+            };
+          })
+        ]
+      ))
+      // {
+        runtimeDeps = [ pkgs.tree-sitter ];
+      }
+    )
   ];
   programs.neovim.customPlugins.treesitter-config = {
     "plugin/tree-sitter-config.lua" = # lua
