@@ -12,6 +12,10 @@
 
     programs.kitty = {
       enable = true;
+      # ctrl+shift+wheel zooms; upstream declined wheel support in mouse_map
+      package = pkgs.kitty.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ./wheel-zoom.patch ];
+      });
       font = {
         name = style.fonts.mono.family;
         size = 12;
@@ -40,6 +44,9 @@
       // builtins.mapAttrs (_: c: "#${c.hex}") (
         lib.getAttrs (builtins.genList (n: "color${toString n}") 16) style.colors
       );
+      extraConfig = ''
+        mouse_map ctrl+shift+middle press ungrabbed change_font_size all 0
+      '';
     };
   };
 }

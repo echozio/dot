@@ -1,0 +1,33 @@
+--- a/kitty/mouse.c
++++ b/kitty/mouse.c
+@@ -1503,6 +1503,30 @@
+ void
+ scroll_event(const GLFWScrollEvent *ev) {
+     debug("\x1b[36mScroll\x1b[m type=%s x: %f y: %f momentum: %s modifiers: %s\n", scroll_offset_type(ev->offset_type), ev->x_offset, ev->y_offset, scroll_phase(ev->momentum_type), format_mods(ev->keyboard_modifiers));
++    if ((ev->keyboard_modifiers & (GLFW_MOD_SHIFT | GLFW_MOD_ALT | GLFW_MOD_CONTROL | GLFW_MOD_SUPER)) == (GLFW_MOD_CONTROL | GLFW_MOD_SHIFT)) {
++        // ctrl+shift+wheel changes the font size instead of scrolling
++        static double zoom_accumulator = 0.;
++        switch (ev->offset_type) {
++            case GLFW_SCROLL_OFFSET_LINES:
++                zoom_accumulator += ev->y_offset;
++                break;
++            case GLFW_SCROLL_OFFEST_V120:
++                zoom_accumulator += ev->y_offset / 120.;
++                break;
++            case GLFW_SCROLL_OFFEST_HIGHRES: {
++                OSWindow *osw_ = global_state.callback_os_window;
++                double cell_height = (osw_ && osw_->fonts_data) ? osw_->fonts_data->fcm.cell_height : 20.;
++                zoom_accumulator += ev->y_offset / (3. * cell_height);
++                break;
++            }
++        }
++        int steps = (int)zoom_accumulator;
++        if (steps) {
++            zoom_accumulator -= steps;
++            call_boss(change_font_size, "Osd", Py_True, steps > 0 ? "+" : "-", (double)abs(steps)/2);
++        }
++        return;
++    }
+     static id_type window_for_momentum_scroll = 0;
+     static bool main_screen_for_momentum_scroll = false;
+     // allow scroll events even if window is not currently focused (in
