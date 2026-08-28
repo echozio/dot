@@ -3,6 +3,12 @@
   environment = {
     shellAliases = {
       lsusb = "cyme";
+      watch = "hwatch";
+    };
+
+    sessionVariables = {
+      LESS = "FR";
+      SYSTEMD_LESS = "FRMK";
     };
 
     systemPackages = with pkgs; [
@@ -14,6 +20,7 @@
       exiftool
       file
       google-cloud-sdk
+      hwatch
       inetutils
       jq
       lm_sensors
