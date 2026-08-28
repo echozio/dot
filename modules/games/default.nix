@@ -13,6 +13,7 @@
       tt
       (callPackage ./mods/gta-iv.nix { })
       (callPackage ./mods/cyberpunk-2077.nix { })
+      (callPackage ./bnet { })
     ];
   };
 }
