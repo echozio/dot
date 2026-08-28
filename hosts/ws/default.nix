@@ -19,29 +19,48 @@
     hostId = "e27df163";
 
     useDHCP = false;
-    enableIPv6 = false;
+    useNetworkd = true;
 
-    bridges.br0.interfaces = [
-      "eno1"
-      "eno2"
-    ];
+    nameservers = [ "10.2.0.1" ];
+    domain = "lan.echoz.io";
+    search = [ "lan.echoz.io" ];
+  };
 
-    nameservers = [ "10.120.120.101" ];
-    domain = "lan.inl1.echoz.io";
-    search = [ "lan.inl1.echoz.io" ];
+  systemd.network = {
+    links = {
+      # tw as in cisco's TwoGigabitEthernet, the 2.5G port
+      "10-tw0" = {
+        matchConfig.PermanentMACAddress = "cc:28:aa:54:4c:bd";
+        linkConfig.Name = "tw0";
+      };
 
-    defaultGateway = "10.210.120.201";
+      "10-xe0" = {
+        matchConfig.PermanentMACAddress = "cc:28:aa:54:4c:be";
+        linkConfig.Name = "xe0";
+      };
+    };
 
-    interfaces.br0.ipv4.addresses = [
-      {
-        address = "10.210.100.101";
-        prefixLength = 16;
-      }
-      {
-        address = "192.168.0.5";
-        prefixLength = 24;
-      }
-    ];
+    netdevs."20-br0".netdevConfig = {
+      Kind = "bridge";
+      Name = "br0";
+    };
+
+    networks = {
+      "30-br0-ports" = {
+        matchConfig.Name = "tw0 xe0";
+        networkConfig.Bridge = "br0";
+        linkConfig.RequiredForOnline = "enslaved";
+      };
+
+      "40-br0" = {
+        matchConfig.Name = "br0";
+        address = [
+          "10.2.0.5/24"
+          "fd02::5/64"
+        ];
+        gateway = [ "10.2.0.1" ];
+      };
+    };
   };
 
   boot = {
@@ -62,7 +81,7 @@
       ensurePrinters = [
         {
           name = "cs410n";
-          deviceUri = "ipp://192.168.0.7";
+          deviceUri = "ipp://lp.lan.echoz.io";
           model = "everywhere";
           ppdOptions = {
             PageSize = "A4";
