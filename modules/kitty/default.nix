@@ -12,7 +12,6 @@
 
     programs.kitty = {
       enable = true;
-      # ctrl+shift+wheel zooms; upstream declined wheel support in mouse_map
       package = pkgs.kitty.overrideAttrs (old: {
         patches = (old.patches or [ ]) ++ [ ./wheel-zoom.patch ];
       });
