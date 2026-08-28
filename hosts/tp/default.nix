@@ -33,7 +33,7 @@
               interface-name = "wg0";
             };
 
-            "wireguard-peer.kKa4US8qJoU0KSIsZzQNlSYGZhbuy2Yl1HVZDiGbs1U=" = {
+            "wireguard-peer.IvYCJl1Q5ThEngtsaOY98oXDbXnUdruq+JYV+4fFnjo=" = {
               endpoint = "81.167.91.47:51820";
               presistent-keepalive = 25;
               allowed-ips = "0.0.0.0/0";
