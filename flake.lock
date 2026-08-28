@@ -272,11 +272,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1782608119,
-        "narHash": "sha256-9bqk8XfzKiMK81UBd3C3TzQr6sPzLikdJKqC11SUL/k=",
+        "lastModified": 1787579037,
+        "narHash": "sha256-MWhEKOLmjTmAE52jbYq0gG+GBsBuijUd6Rz/cu7d6Pc=",
         "owner": "echozio",
         "repo": "sec",
-        "rev": "a50147ac0ff6ae15304771205ac5a9bc442c7e59",
+        "rev": "25d91fe2ca42db138ddd4b74152bc54a0f41a16b",
         "type": "github"
       },
       "original": {
