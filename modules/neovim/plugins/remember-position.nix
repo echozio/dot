@@ -1,5 +1,5 @@
 {
-  programs.neovim.customPlugins.remember-position= {
+  programs.neovim.customPlugins.remember-position = {
     "plugin/remember-position.lua" = # lua
       ''
         vim.api.nvim_create_autocmd('BufReadPost', {
