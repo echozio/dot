@@ -123,15 +123,13 @@
           };
 
           workspace = (builtins.genList (n: "${toString (n + 1)}, persistent:true") 9) ++ [
-            "special:special, on-created-empty:[workspace special:special; float] ${
-              pkgs.writeShellScript "init-empty-special-workspace" ''
-                settings=(
-                  "--override" "initial_window_width=160c"
-                  "--override" "initial_window_height=48c"
-                )
-                uwsm app -- kitty "''${settings[@]}" btop
-              ''
-            }"
+            "special:special, on-created-empty:[workspace special:special; float] ${pkgs.writeShellScript "init-empty-special-workspace" ''
+              settings=(
+                "--override" "initial_window_width=160c"
+                "--override" "initial_window_height=48c"
+              )
+              uwsm app -- kitty "''${settings[@]}" btop
+            ''}"
           ];
 
           "$mod" = lib.mkDefault "SUPER";
