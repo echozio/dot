@@ -9,6 +9,8 @@
   home-manager.users.${user}.programs.git = {
     enable = true;
 
+    ignores = [ ".claude/worktrees/" ];
+
     settings = {
       user.name = lib.toSentenceCase user;
       user.email = email;
