@@ -21,7 +21,14 @@
       names.endpoint = [ "{node:node.description}" ];
       names.device = [ "{node:node.description}" ];
       filters = [
-        { matches = [ { "node.virtual" = "true"; "media.class" = "Stream/Output/Audio"; } ]; }
+        {
+          matches = [
+            {
+              "node.virtual" = "true";
+              "media.class" = "Stream/Output/Audio";
+            }
+          ];
+        }
       ];
     };
   };
