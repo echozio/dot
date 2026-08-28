@@ -25,25 +25,25 @@
       enable = true;
       ensureProfiles = {
         profiles = {
-          "fw01.isx.inl1.echoz.io" = {
+          "vpn.echoz.io" = {
             connection = {
-              id = "fw01.isx.inl1.echoz.io";
+              id = "vpn.echoz.io";
               type = "wireguard";
               autoconnect = true;
               interface-name = "wg0";
             };
 
-            "wireguard-peer.uoeLveuevSLe6pkIvMryLOr2RVM3qcarSNn0OfNcIUA=" = {
-              endpoint = "fw01.isx.inl1.echoz.io:51820";
+            "wireguard-peer.kKa4US8qJoU0KSIsZzQNlSYGZhbuy2Yl1HVZDiGbs1U=" = {
+              endpoint = "81.167.91.47:51820";
               presistent-keepalive = 25;
               allowed-ips = "0.0.0.0/0";
             };
 
             ipv4 = {
               method = "manual";
-              address1 = "10.200.100.104/24";
-              dns = "10.120.120.101";
-              dns-search = "lan.inl1.echoz.io";
+              address1 = "10.5.0.2/24";
+              dns = "10.5.0.1";
+              dns-search = "lan.echoz.io";
             };
 
             ipv6.method = "disabled";
