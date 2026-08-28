@@ -62,20 +62,26 @@
         "org.signal.Signal".Environment = {
           SIGNAL_PASSWORD_STORE = "gnome-libsecret";
         };
+
+        "com.mojang.Minecraft"."Session Bus Policy" = {
+          "org.freedesktop.secrets" = "talk";
+        };
       };
 
     packages = [
       "com.adamcake.Bolt"
       "com.discordapp.Discord"
+      "com.github.Matoking.protontricks"
+      "com.mojang.Minecraft"
       "com.slack.Slack"
       "com.spotify.Client"
       "com.valvesoftware.Steam"
-      "org.freedesktop.Platform.VulkanLayer.MangoHud//25.08"
+      "io.github.lullabyX.sone"
       "org.freedesktop.Platform.VulkanLayer.gamescope//25.08"
+      "org.freedesktop.Platform.VulkanLayer.MangoHud//25.08"
       "org.onlyoffice.desktopeditors"
       "org.signal.Signal"
       "xyz.tytanium.DoorKnocker"
-      "com.github.Matoking.protontricks"
     ];
   };
 
