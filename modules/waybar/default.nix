@@ -1,4 +1,9 @@
-{ style, user, lib, ... }:
+{
+  style,
+  user,
+  lib,
+  ...
+}:
 {
   home-manager.users.${user} = {
     wayland.windowManager.hyprland.settings.layerrule = [
