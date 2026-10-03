@@ -6,14 +6,25 @@
   curl,
   dxvk,
   gnugrep,
+  lib,
   makeDesktopItem,
+  pkgsCross,
   symlinkJoin,
+  wine,
   wineWow64Packages,
   writeShellApplication,
 }:
 
 let
   winePkg = wineWow64Packages.stagingFull;
+
+  vkd3dProton =
+    (pkgsCross.mingwW64.vkd3d-proton.override { inherit wine; }).overrideAttrs (old: {
+      buildInputs = (old.buildInputs or [ ]) ++ [
+        pkgsCross.mingwW64.windows.pthreads
+      ];
+      meta = old.meta // { platforms = lib.platforms.windows; };
+    });
 
   inner = writeShellApplication {
     name = "bnet-inner";
@@ -44,7 +55,15 @@ let
         touch "$WINEPREFIX/.setup-done"
       fi
 
-      exec wine "$WINEPREFIX/drive_c/Program Files (x86)/Battle.net/Battle.net Launcher.exe" "$@"
+      ln -sf ${vkd3dProton}/bin/*.dll "$WINEPREFIX/drive_c/windows/system32/"
+      for dll in d3d12 d3d12core; do
+        wine reg add 'HKCU\Software\Wine\DllOverrides' /v "$dll" /d native /f
+      done
+
+      wine reg add 'HKCU\Software\Wine\Explorer' /v ShowSystray /t REG_DWORD /d 0 /f
+
+      wine "$WINEPREFIX/drive_c/Program Files (x86)/Battle.net/Battle.net Launcher.exe" "$@"
+      exec wineserver -w
     '';
   };
 
