@@ -1,4 +1,5 @@
 {
+  pkgs,
   modulesPath,
   sec,
   user,
@@ -72,9 +73,14 @@
     kernelModules = [ "kvm-amd" ];
   };
 
+  environment.systemPackages = with pkgs; [
+    ryzenadj
+  ];
+
   hardware = {
     enableAllFirmware = true;
     cpu.amd.updateMicrocode = true;
+    cpu.amd.ryzen-smu.enable = true;
     amdgpu.initrd.enable = true;
 
     printers = {
