@@ -66,6 +66,10 @@
         "com.mojang.Minecraft"."Session Bus Policy" = {
           "org.freedesktop.secrets" = "talk";
         };
+
+        "io.github.lullabyX.sone".Environment = {
+          WEBKIT_DISABLE_COMPOSITING_MODE = "0";
+        };
       };
 
     packages = [
