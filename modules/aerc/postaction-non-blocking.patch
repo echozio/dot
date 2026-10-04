@@ -1,0 +1,109 @@
+From 0e446709671be6a4da40230f9c8b09a627179049 Mon Sep 17 00:00:00 2001
+From: Chris <chris@echoz.io>
+Date: Sun, 4 Oct 2026 16:23:32 +0000
+Subject: [PATCH 1/2] worker: make PostAction non-blocking again
+
+Commit 8cdb6513 ("worker: pass message channel explicitly to constructor")
+removed the action queue and made PostAction a plain send on a 32-slot
+buffered channel. The imap worker posts CheckMail actions to its own
+worker from its own goroutine (handleStoreOps, handleImapUpdate). Once
+the UI has queued more than 32 actions (e.g. holding down a key bound to
+:read / :archive), the channel is full, the worker blocks sending to a
+channel only it consumes, and aerc hangs forever.
+
+Restore the unbounded FIFO queue drained by a background goroutine so
+PostAction never blocks and ordering is preserved.
+---
+ worker/types/worker.go | 48 +++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 45 insertions(+), 3 deletions(-)
+
+diff --git a/worker/types/worker.go b/worker/types/worker.go
+index 36bd40a3..72847325 100644
+--- a/worker/types/worker.go
++++ b/worker/types/worker.go
+@@ -1,6 +1,7 @@
+ package types
+ 
+ import (
++	"container/list"
+ 	"context"
+ 	"sync"
+ 	"sync/atomic"
+@@ -34,6 +35,8 @@ type Worker struct {
+ 	actionCallbacks  map[int64]func(msg WorkerMessage)
+ 	messages         chan WorkerMessage
+ 	messageCallbacks map[int64]func(msg WorkerMessage)
++	actionQueue      *list.List
++	status           int32
+ 	name             string
+ 
+ 	sync.Mutex
+@@ -47,6 +50,7 @@ func NewWorker(name string, messages chan WorkerMessage) *Worker {
+ 		actionCallbacks:  make(map[int64]func(msg WorkerMessage)),
+ 		messages:         messages,
+ 		messageCallbacks: make(map[int64]func(msg WorkerMessage)),
++		actionQueue:      list.New(),
+ 		name:             name,
+ 	}
+ }
+@@ -68,8 +72,45 @@ func (worker *Worker) setId(msg WorkerMessage) {
+ 	msg.SetId(id)
+ }
+ 
+-// PostAction posts an action to the worker. This method should not be called
+-// from the same goroutine that the worker runs in or deadlocks may occur.
++const (
++	idle int32 = iota
++	busy
++)
++
++// Add a new task to the action queue without blocking. Start processing the
++// queue in the background if needed.
++func (worker *Worker) queue(msg WorkerMessage) {
++	worker.Lock()
++	defer worker.Unlock()
++	worker.actionQueue.PushBack(msg)
++	if atomic.LoadInt32(&worker.status) == idle {
++		atomic.StoreInt32(&worker.status, busy)
++		go worker.processQueue()
++	}
++}
++
++// Start processing the action queue and write all messages to the actions
++// channel, one by one. Stop when the action queue is empty.
++func (worker *Worker) processQueue() {
++	defer log.PanicHandler()
++	for {
++		worker.Lock()
++		e := worker.actionQueue.Front()
++		if e == nil {
++			atomic.StoreInt32(&worker.status, idle)
++			worker.Unlock()
++			return
++		}
++		msg := worker.actionQueue.Remove(e).(WorkerMessage)
++		worker.Unlock()
++		worker.actions <- msg
++	}
++}
++
++// PostAction posts an action to the worker. It never blocks: messages are
++// queued and fed to the actions channel in order by a background goroutine.
++// This makes it safe to call from the worker goroutine itself (e.g. the imap
++// backend posting CheckMail actions to its own worker).
+ // If ctx is non-nil, it will be attached to the message for cancellation.
+ func (worker *Worker) PostAction(
+ 	ctx context.Context, msg WorkerMessage, cb func(msg WorkerMessage),
+@@ -86,7 +127,8 @@ func (worker *Worker) PostAction(
+ 		worker.Unlock()
+ 	}
+ 
+-	worker.actions <- msg
++	// write to actions channel without blocking
++	worker.queue(msg)
+ }
+ 
+ // PostMessage posts an message to the UI. This method should not be called
+-- 
+2.55.0
+

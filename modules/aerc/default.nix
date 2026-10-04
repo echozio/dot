@@ -57,6 +57,16 @@
       config = {
         programs.aerc = {
           enable = true;
+          package = pkgs.aerc.overrideAttrs (old: {
+            patches = (old.patches or [ ]) ++ [
+              # Holding down a key bound to :read / :archive deadlocks the imap
+              # worker in 0.22.0: PostAction blocks on a full 32-slot channel
+              # that only the worker itself drains.
+              ./postaction-non-blocking.patch
+              # https://todo.sr.ht/~rjarry/aerc/355
+              ./reload-sigusr1.patch
+            ];
+          });
           extraConfig = {
             general.unsafe-accounts-conf = true;
 
