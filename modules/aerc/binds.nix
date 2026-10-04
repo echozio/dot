@@ -1,7 +1,5 @@
 {
   lib,
-  config,
-  pkgs,
 
   user,
   ...
@@ -179,22 +177,5 @@
         "<C-n>" = ":next-tab<Enter>";
       };
     }
-
-    (lib.mapAttrs' (
-      name: account:
-      let
-        passwordCmd = lib.concatStringsSep " " account.passwordCommand;
-      in
-      lib.nameValuePair "messages:account=${name}" {
-        "gs" = ":term ${pkgs.writeShellScript "sieve-edit" ''
-          printf "\033]0;%s\a" "Sieve: ${name}"
-          "${lib.getExe pkgs.sieve-connect}" \
-            --user "${account.userName}" \
-            --server "${account.imap.host}" \
-            --passwordfd 5 \
-             5<<<"$(${passwordCmd})"
-        ''}<Enter>";
-      }
-    ) config.home-manager.users.${user}.accounts.email.accounts)
   ];
 }
