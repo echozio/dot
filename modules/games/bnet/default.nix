@@ -126,6 +126,7 @@ let
     desktopName = "Battle.net";
     comment = "Battle.net launcher";
     exec = "${launcher}/bin/bnet";
+    icon = "${./icon.svg}";
     categories = [ "Game" ];
     startupWMClass = "battle.net.exe";
   };
