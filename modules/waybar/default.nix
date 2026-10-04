@@ -6,8 +6,12 @@
 }:
 {
   home-manager.users.${user} = {
-    wayland.windowManager.hyprland.settings.layerrule = [
-      "blur on, ignore_alpha 0.19, match:namespace waybar"
+    wayland.windowManager.hyprland.settings.layer_rule = [
+      {
+        match.namespace = "waybar";
+        blur = true;
+        ignore_alpha = 0.19;
+      }
     ];
 
     programs.waybar = {

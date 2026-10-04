@@ -12,8 +12,13 @@ in
   home-manager.users.${user} =
     { config, ... }:
     {
-      wayland.windowManager.hyprland.settings.layerrule = [
-        "blur on, ignore_alpha 0.19, no_anim on, match:namespace microphone-indicator"
+      wayland.windowManager.hyprland.settings.layer_rule = [
+        {
+          match.namespace = "microphone-indicator";
+          blur = true;
+          ignore_alpha = 0.19;
+          no_anim = true;
+        }
       ];
 
       programs.eww = {

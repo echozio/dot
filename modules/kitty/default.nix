@@ -8,7 +8,14 @@
 }:
 {
   config.home-manager.users.${user} = {
-    wayland.windowManager.hyprland.settings.bind = [ "$mod, Return, exec, uwsm app -- kitty" ];
+    wayland.windowManager.hyprland.settings.bind = [
+      {
+        _args = [
+          (lib.generators.mkLuaInline ''mod .. " + Return"'')
+          (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("uwsm app -- kitty")'')
+        ];
+      }
+    ];
 
     programs.kitty = {
       enable = true;

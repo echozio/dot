@@ -1,4 +1,5 @@
 {
+  lib,
   user,
 
   imsh-clients,
@@ -17,49 +18,46 @@
 
     wayland.windowManager.hyprland.settings.bind =
       let
-        cat = builtins.concatStringsSep " ";
+        bind = keys: command: {
+          _args = [
+            (lib.generators.mkLuaInline ''mod .. " + ${keys}"'')
+            (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("uwsm app -- ${builtins.concatStringsSep " " command}")'')
+          ];
+        };
       in
       [
-        (cat [
-          "$mod, A, exec, uwsm app --"
+        (bind "A" [
           "imsh-shot screen --cursor --utc --copy"
           "--output ~/pic/scr/%Y-%m-%dT%H-%M-%S.%3NZ.png"
         ])
-        (cat [
-          "$mod SHIFT, A, exec, uwsm app --"
+        (bind "SHIFT + A" [
           "imsh-shot screen --cursor --utc --copy"
           "--output ~/pic/scr/%Y-%m-%dT%H-%M-%S.%3NZ.png"
           "--api-key '%rbw get scrn.is/api-key' --upload"
         ])
-        (cat [
-          "$mod, S, exec, uwsm app --"
+        (bind "S" [
           "imsh-shot area --freeze --utc --copy"
           "--output ~/pic/scr/%Y-%m-%dT%H-%M-%S.%3NZ.png"
         ])
-        (cat [
-          "$mod SHIFT, S, exec, uwsm app --"
+        (bind "SHIFT + S" [
           "imsh-shot area --freeze --utc --copy"
           "--output ~/pic/scr/%Y-%m-%dT%H-%M-%S.%3NZ.png"
           "--api-key '%rbw get scrn.is/api-key' --upload"
         ])
-        (cat [
-          "$mod, D, exec, uwsm app --"
+        (bind "D" [
           "imsh-shot active --cursor --utc --copy"
           "--output ~/pic/scr/%Y-%m-%dT%H-%M-%S.%3NZ.png"
         ])
-        (cat [
-          "$mod SHIFT, D, exec, uwsm app --"
+        (bind "SHIFT + D" [
           "imsh-shot active --cursor --utc --copy"
           "--output ~/pic/scr/%Y-%m-%dT%H-%M-%S.%3NZ.png"
           "--api-key '%rbw get scrn.is/api-key' --upload"
         ])
-        (cat [
-          "$mod, R, exec, uwsm app --"
+        (bind "R" [
           "imsh-cast --utc --copy"
           "--output ~/vid/rec/%Y-%m-%dT%H-%M-%S.%3NZ.mp4"
         ])
-        (cat [
-          "$mod SHIFT, R, exec, uwsm app --"
+        (bind "SHIFT + R" [
           "imsh-cast --utc --copy"
           "--output ~/vic/rec/%Y-%m-%dT%H-%M-%S.%3NZ.mp4"
           "--api-key '%rbw get scrn.is/api-key' --upload"

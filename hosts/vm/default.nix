@@ -18,5 +18,5 @@
     hostId = "522ef8a2";
   };
 
-  home-manager.users.${user}.wayland.windowManager.hyprland.settings."$mod" = "ALT";
+  home-manager.users.${user}.wayland.windowManager.hyprland.settings.mod._var = "ALT";
 }

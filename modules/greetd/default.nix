@@ -27,37 +27,50 @@ in
         enable = true;
         package = null;
         portalPackage = null;
-        configType = "hyprlang";
+        configType = "lua";
         settings = {
           inherit (hmUserCfg.wayland.windowManager.hyprland.settings)
             monitor
-            input
-            general
-            misc
-            ecosystem
-            decoration
-            animations
+            config
+            curve
+            animation
             ;
-          windowrule = "float on, match:class ^gtkgreet$";
-          layerrule = "blur on, match:namespace waybar";
-          exec-once = "${lib.getExe pkgs.gtkgreet} -s ${pkgs.writeText "gtkgreet-style.css" ''
-            window, button, entry {
-              background: ${style.colors.bg.rgba};
-              border: none;
-              box-shadow: none;
-              text-shadow: none;
-            }
-            label, window, button, entry {
-              color: #${style.colors.fg.hex};
-            }
-            #command-selector arrow {
-              opacity: 0;
-            }
-            #clock {
-              margin-bottom: -48px;
-              opacity: 0;
-            }
-          ''} -c 'uwsm start hyprland-uwsm.desktop'; hyprctl dispatch exit";
+          window_rule = {
+            match.class = "^gtkgreet$";
+            float = true;
+          };
+          layer_rule = {
+            match.namespace = "waybar";
+            blur = true;
+          };
+          on = {
+            _args = [
+              "hyprland.start"
+              (lib.generators.mkLuaInline ''
+                function()
+                  hl.exec_cmd(${
+                    lib.generators.toLua { } "${lib.getExe pkgs.gtkgreet} -s ${pkgs.writeText "gtkgreet-style.css" ''
+                      window, button, entry {
+                        background: ${style.colors.bg.rgba};
+                        border: none;
+                        box-shadow: none;
+                        text-shadow: none;
+                      }
+                      label, window, button, entry {
+                        color: #${style.colors.fg.hex};
+                      }
+                      #command-selector arrow {
+                        opacity: 0;
+                      }
+                      #clock {
+                        margin-bottom: -48px;
+                        opacity: 0;
+                      }
+                    ''} -c 'uwsm start hyprland-uwsm.desktop'; hyprctl dispatch exit"
+                  })
+                end'')
+            ];
+          };
         };
       };
 

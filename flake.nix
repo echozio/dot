@@ -2,14 +2,14 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
 
-    disko.url = "github:nix-community/disko/v1.12.0";
+    disko.url = "github:nix-community/disko/v1.13.0";
     home-manager.url = "github:nix-community/home-manager";
     impermanence.url = "github:nix-community/impermanence";
     sops-nix.url = "github:Mic92/sops-nix";
     walker.url = "github:abenz1267/walker";
     elephant.url = "github:abenz1267/elephant";
     nixpak.url = "github:nixpak/nixpak";
-    nix-flatpak.url = "github:gmodena/nix-flatpak/v0.6.0";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/v0.7.0";
     imsh-clients.url = "github:echozio/imsh-clients";
 
     disko.inputs.nixpkgs.follows = "nixpkgs";

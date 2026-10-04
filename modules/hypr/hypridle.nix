@@ -19,7 +19,14 @@
       config = {
         home.packages = [ pkgs.brightnessctl ];
 
-        wayland.windowManager.hyprland.settings.bind = [ "$mod, Delete, exec, loginctl lock-session" ];
+        wayland.windowManager.hyprland.settings.bind = [
+          {
+            _args = [
+              (lib.generators.mkLuaInline ''mod .. " + Delete"'')
+              (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("loginctl lock-session")'')
+            ];
+          }
+        ];
 
         services.hypridle =
           let

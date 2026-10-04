@@ -1,4 +1,5 @@
 {
+  lib,
   style,
   user,
   walker,
@@ -9,8 +10,22 @@
     imports = [ walker.homeManagerModules.walker ];
 
     wayland.windowManager.hyprland.settings = {
-      bind = [ "$mod, Escape, exec, uwsm app -- walker" ];
-      layerrule = [ "blur on, ignore_alpha 0.19, dim_around on, match:namespace walker" ];
+      bind = [
+        {
+          _args = [
+            (lib.generators.mkLuaInline ''mod .. " + Escape"'')
+            (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("uwsm app -- walker")'')
+          ];
+        }
+      ];
+      layer_rule = [
+        {
+          match.namespace = "walker";
+          blur = true;
+          ignore_alpha = 0.19;
+          dim_around = true;
+        }
+      ];
     };
 
     programs.walker = {

@@ -1,4 +1,4 @@
-{ style, user, ... }:
+{ lib, style, user, ... }:
 {
   imports = [
     ./policies.nix
@@ -12,7 +12,14 @@
   ];
 
   home-manager.users.${user} = {
-    wayland.windowManager.hyprland.settings.bind = [ "$mod, W, exec, uwsm app -- firefox" ];
+    wayland.windowManager.hyprland.settings.bind = [
+      {
+        _args = [
+          (lib.generators.mkLuaInline ''mod .. " + W"'')
+          (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("uwsm app -- firefox")'')
+        ];
+      }
+    ];
     programs.zsh.shellAliases.ff = "firefox";
 
     programs.firefox = {
