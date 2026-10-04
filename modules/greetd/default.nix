@@ -28,6 +28,7 @@ in
         package = null;
         portalPackage = null;
         configType = "lua";
+        systemd.enable = false;
         settings = {
           inherit (hmUserCfg.wayland.windowManager.hyprland.settings)
             monitor

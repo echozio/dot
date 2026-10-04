@@ -27,6 +27,7 @@ in
         package = null;
         portalPackage = null;
         configType = "lua";
+        systemd.enable = false;
         settings = {
           mod._var = lib.mkDefault "SUPER";
 
