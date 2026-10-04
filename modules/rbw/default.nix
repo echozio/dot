@@ -2,6 +2,7 @@
   lib,
   pkgs,
 
+  pinentry-fuzzel,
   user,
   email,
   ...
@@ -70,7 +71,7 @@
           email = email;
           pinentry = pkgs.writeShellScriptBin "rbw-pinentry-wrapper" ''
             if [ -n "$WAYLAND_DISPLAY" ]; then
-              exec ${lib.getExe config.programs.wayprompt.package} "$@"
+              exec ${lib.getExe pinentry-fuzzel} "$@"
             else
               exec ${lib.getExe pkgs.pinentry-tty} "$@"
             fi
