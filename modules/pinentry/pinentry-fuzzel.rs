@@ -116,7 +116,20 @@ fn getpin(stdout: &mut impl Write, desc: &str, error: &str) -> io::Result<()> {
 
     if !status.success() || len == 0 || overflow {
         zero(&mut pin);
-        stdout.write_all(b"ERR 83886179 Operation cancelled <pinentry-fuzzel>\n")?;
+        // fuzzel exits 2 when the user dismisses the prompt; anything
+        // else means it never got to ask (no compositor, bad args).
+        if status.success() || status.code() == Some(2) {
+            stdout.write_all(b"ERR 83886179 Operation cancelled <pinentry-fuzzel>\n")?;
+        } else {
+            let line = format!(
+                "ERR 83886081 fuzzel failed with {} <pinentry-fuzzel>\n",
+                match status.code() {
+                    Some(code) => format!("exit code {code}"),
+                    None => String::from("a signal"),
+                }
+            );
+            stdout.write_all(line.as_bytes())?;
+        }
         return stdout.flush();
     }
 

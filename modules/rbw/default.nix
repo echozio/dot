@@ -69,8 +69,15 @@
         });
         settings = {
           email = email;
+          # rbw-agent spawns this with the calling client's WAYLAND_DISPLAY,
+          # which can name a socket that no longer exists.
           pinentry = pkgs.writeShellScriptBin "rbw-pinentry-wrapper" ''
-            if [ -n "$WAYLAND_DISPLAY" ]; then
+            case "$WAYLAND_DISPLAY" in
+              "") sock="" ;;
+              /*) sock="$WAYLAND_DISPLAY" ;;
+              *) sock="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/$WAYLAND_DISPLAY" ;;
+            esac
+            if [ -n "$sock" ] && [ -S "$sock" ]; then
               exec ${lib.getExe pinentry-fuzzel} "$@"
             else
               exec ${lib.getExe pkgs.pinentry-tty} "$@"
