@@ -6,8 +6,6 @@
     home-manager.url = "github:nix-community/home-manager";
     impermanence.url = "github:nix-community/impermanence";
     sops-nix.url = "github:Mic92/sops-nix";
-    walker.url = "github:abenz1267/walker";
-    elephant.url = "github:abenz1267/elephant";
     nixpak.url = "github:nixpak/nixpak";
     nix-flatpak.url = "github:gmodena/nix-flatpak/v0.7.0";
     imsh-clients.url = "github:echozio/imsh-clients";
@@ -15,9 +13,6 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    walker.inputs.nixpkgs.follows = "nixpkgs";
-    walker.inputs.elephant.follows = "elephant";
-    elephant.inputs.nixpkgs.follows = "nixpkgs";
     nixpak.inputs.nixpkgs.follows = "nixpkgs";
     imsh-clients.inputs.nixpkgs.follows = "nixpkgs";
 
