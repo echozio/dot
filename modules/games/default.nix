@@ -16,4 +16,6 @@
       (callPackage ./bnet { })
     ];
   };
+
+  environment.persistence."/fix".users.${user}.directories = [ ".local/share/bnet" ];
 }
