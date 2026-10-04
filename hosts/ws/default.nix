@@ -77,6 +77,19 @@
     ryzenadj
   ];
 
+  systemd.services.ryzenadj = {
+    description = "Apply ryzenadj temperature limit";
+    wantedBy = [
+      "multi-user.target"
+      "post-resume.target"
+    ];
+    after = [ "post-resume.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=85";
+    };
+  };
+
   hardware = {
     enableAllFirmware = true;
     cpu.amd.updateMicrocode = true;
