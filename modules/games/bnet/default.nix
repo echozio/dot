@@ -38,14 +38,6 @@ let
         wineboot -u
         wineserver -w
 
-        echo "Installing DXVK" >&2
-        ln -sf ${dxvk.dxvk64}/bin/*.dll "$WINEPREFIX/drive_c/windows/system32/"
-        ln -sf ${dxvk.dxvk32}/bin/*.dll "$WINEPREFIX/drive_c/windows/syswow64/"
-        for dll in d3d8 d3d9 d3d10core d3d11 dxgi; do
-          wine reg add 'HKCU\Software\Wine\DllOverrides' /v "$dll" /d native /f
-        done
-        wineserver -w
-
         echo "Downloading Battle.net installer" >&2
         curl -Lo /tmp/Battle.net-Setup.exe \
           'https://downloader.battle.net/download/getInstaller?os=win&installer=Battle.net-Setup.exe'
@@ -55,8 +47,18 @@ let
         touch "$WINEPREFIX/.setup-done"
       fi
 
-      ln -sf ${vkd3dProton}/bin/*.dll "$WINEPREFIX/drive_c/windows/system32/"
-      for dll in d3d12 d3d12core; do
+      # Nix store mtimes are all 1, so wine's own wine.inf timestamp check never
+      # notices a new wine; track the store path instead.
+      if [ "$(cat "$WINEPREFIX/.wine-version" 2>/dev/null)" != "${winePkg}" ]; then
+        echo "Updating wineprefix for ${winePkg}" >&2
+        wineboot -u
+        wineserver -w
+        echo "${winePkg}" > "$WINEPREFIX/.wine-version"
+      fi
+
+      ln -sf ${dxvk.dxvk64}/bin/*.dll ${vkd3dProton}/bin/*.dll "$WINEPREFIX/drive_c/windows/system32/"
+      ln -sf ${dxvk.dxvk32}/bin/*.dll "$WINEPREFIX/drive_c/windows/syswow64/"
+      for dll in d3d8 d3d9 d3d10core d3d11 d3d12 d3d12core dxgi; do
         wine reg add 'HKCU\Software\Wine\DllOverrides' /v "$dll" /d native /f
       done
 
