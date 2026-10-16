@@ -25,6 +25,11 @@
     nameservers = [ "10.2.0.1" ];
     domain = "lan.echoz.io";
     search = [ "lan.echoz.io" ];
+
+    firewall = {
+      allowedTCPPorts = [ 23232 ];
+      allowedUDPPorts = [ 23232 ];
+    };
   };
 
   systemd.network = {
