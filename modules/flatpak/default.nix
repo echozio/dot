@@ -63,10 +63,6 @@
         "com.mojang.Minecraft"."Session Bus Policy" = {
           "org.freedesktop.secrets" = "talk";
         };
-
-        "io.github.lullabyX.sone".Environment = {
-          WEBKIT_DISABLE_COMPOSITING_MODE = "0";
-        };
       };
 
     packages = [
@@ -77,7 +73,6 @@
       "com.slack.Slack"
       "com.spotify.Client"
       "com.valvesoftware.Steam"
-      "io.github.lullabyX.sone"
       "org.freedesktop.Platform.VulkanLayer.gamescope//25.08"
       "org.freedesktop.Platform.VulkanLayer.MangoHud//25.08"
       "org.onlyoffice.desktopeditors"
