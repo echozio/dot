@@ -50,6 +50,7 @@
               nixos-anywhere
               ssh-to-age
               disko
+              nvd
               (writeShellScriptBin "generate-host-keys" ''
                 host="$1"
                 out="tmp/fix"
