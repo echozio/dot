@@ -50,24 +50,25 @@ in
               (lib.generators.mkLuaInline ''
                 function()
                   hl.exec_cmd(${
-                    lib.generators.toLua { } "${lib.getExe pkgs.gtkgreet} -s ${pkgs.writeText "gtkgreet-style.css" ''
-                      window, button, entry {
-                        background: ${style.colors.bg.rgba};
-                        border: none;
-                        box-shadow: none;
-                        text-shadow: none;
-                      }
-                      label, window, button, entry {
-                        color: #${style.colors.fg.hex};
-                      }
-                      #command-selector arrow {
-                        opacity: 0;
-                      }
-                      #clock {
-                        margin-bottom: -48px;
-                        opacity: 0;
-                      }
-                    ''} -c 'uwsm start hyprland-uwsm.desktop'; hyprctl dispatch exit"
+                    lib.generators.toLua { }
+                      "${lib.getExe pkgs.gtkgreet} -s ${pkgs.writeText "gtkgreet-style.css" ''
+                        window, button, entry {
+                          background: ${style.colors.bg.rgba};
+                          border: none;
+                          box-shadow: none;
+                          text-shadow: none;
+                        }
+                        label, window, button, entry {
+                          color: #${style.colors.fg.hex};
+                        }
+                        #command-selector arrow {
+                          opacity: 0;
+                        }
+                        #clock {
+                          margin-bottom: -48px;
+                          opacity: 0;
+                        }
+                      ''} -c 'uwsm start hyprland-uwsm.desktop'; hyprctl dispatch exit"
                   })
                 end'')
             ];

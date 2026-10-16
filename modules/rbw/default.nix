@@ -47,25 +47,23 @@
         #     out is relaxing the vendored crate's match arm — the same change
         #     upstream made on master.
         package = pkgs.rbw.overrideAttrs (old: {
-          postPatch =
-            (old.postPatch or "")
-            + ''
-              substituteInPlace Cargo.toml \
-                --replace-fail \
-                  'sha1 = "0.10.6"' \
-                  'sha1 = { version = "0.10.6", features = ["oid"] }'
+          postPatch = (old.postPatch or "") + ''
+            substituteInPlace Cargo.toml \
+              --replace-fail \
+                'sha1 = "0.10.6"' \
+                'sha1 = { version = "0.10.6", features = ["oid"] }'
 
-              substituteInPlace src/bin/rbw-agent/ssh_agent.rs \
-                --replace-fail \
-                  'rsa::pkcs1v15::SigningKey::<sha1::Sha1>::new_unprefixed(rsa_key)' \
-                  'rsa::pkcs1v15::SigningKey::<sha1::Sha1>::new(rsa_key)'
+            substituteInPlace src/bin/rbw-agent/ssh_agent.rs \
+              --replace-fail \
+                'rsa::pkcs1v15::SigningKey::<sha1::Sha1>::new_unprefixed(rsa_key)' \
+                'rsa::pkcs1v15::SigningKey::<sha1::Sha1>::new(rsa_key)'
 
-              substituteInPlace \
-                "$(find /build -path '*/ssh-key-0.6.7/src/signature.rs')" \
-                --replace-fail \
-                  'Algorithm::Rsa { hash: Some(_) } => (),' \
-                  'Algorithm::Rsa { .. } => (),'
-            '';
+            substituteInPlace \
+              "$(find /build -path '*/ssh-key-0.6.7/src/signature.rs')" \
+              --replace-fail \
+                'Algorithm::Rsa { hash: Some(_) } => (),' \
+                'Algorithm::Rsa { .. } => (),'
+          '';
         });
         settings = {
           email = email;

@@ -18,17 +18,24 @@
 let
   winePkg = wineWow64Packages.stagingFull;
 
-  vkd3dProton =
-    (pkgsCross.mingwW64.vkd3d-proton.override { inherit wine; }).overrideAttrs (old: {
-      buildInputs = (old.buildInputs or [ ]) ++ [
-        pkgsCross.mingwW64.windows.pthreads
-      ];
-      meta = old.meta // { platforms = lib.platforms.windows; };
-    });
+  vkd3dProton = (pkgsCross.mingwW64.vkd3d-proton.override { inherit wine; }).overrideAttrs (old: {
+    buildInputs = (old.buildInputs or [ ]) ++ [
+      pkgsCross.mingwW64.windows.pthreads
+    ];
+    meta = old.meta // {
+      platforms = lib.platforms.windows;
+    };
+  });
 
   inner = writeShellApplication {
     name = "bnet-inner";
-    runtimeInputs = [ winePkg curl coreutils bash gnugrep ];
+    runtimeInputs = [
+      winePkg
+      curl
+      coreutils
+      bash
+      gnugrep
+    ];
     text = ''
       export WINEPREFIX="$HOME/prefix"
       export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
@@ -71,7 +78,10 @@ let
 
   launcher = writeShellApplication {
     name = "bnet";
-    runtimeInputs = [ bubblewrap coreutils ];
+    runtimeInputs = [
+      bubblewrap
+      coreutils
+    ];
     text = ''
       data="''${XDG_DATA_HOME:-$HOME/.local/share}/bnet"
       mkdir -p "$data"
@@ -135,5 +145,8 @@ let
 in
 symlinkJoin {
   name = "bnet";
-  paths = [ launcher desktopItem ];
+  paths = [
+    launcher
+    desktopItem
+  ];
 }

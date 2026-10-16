@@ -1,7 +1,12 @@
 { user, mkAgentSandbox, ... }:
 {
   home-manager.users.${user} =
-    { config, lib, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       ollamaContext = lib.toInt config.services.ollama.environmentVariables.OLLAMA_CONTEXT_LENGTH;
       sandboxContext = pkgs.writeText "opencode-sandbox-context.md" ''
