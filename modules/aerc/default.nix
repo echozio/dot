@@ -55,6 +55,19 @@
       };
 
       config = {
+        xdg.desktopEntries.aerc = {
+          name = "aerc";
+          exec = "kitty --class aerc aerc";
+          icon = ./icon.svg;
+        };
+
+        wayland.windowManager.hyprland.settings.window_rule = [
+          {
+            match.class = "^aerc$";
+            workspace = "1 silent";
+          }
+        ];
+
         programs.aerc = {
           enable = true;
           package = pkgs.aerc.overrideAttrs (old: {

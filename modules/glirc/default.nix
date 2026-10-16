@@ -23,6 +23,19 @@
         {
           home.packages = [ pkgs.glirc ];
 
+          xdg.desktopEntries.glirc = {
+            name = "glirc";
+            exec = "kitty --class glirc glirc";
+            icon = ./icon.svg;
+          };
+
+          wayland.windowManager.hyprland.settings.window_rule = [
+            {
+              match.class = "^glirc$";
+              workspace = "1 silent";
+            }
+          ];
+
           xdg.configFile."glirc/config" = lib.mkIf (cfg.extraConfig != null) {
             text = cfg.extraConfig;
           };

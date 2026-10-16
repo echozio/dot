@@ -8,6 +8,7 @@
 {
   imports = [
     sec.nixosModules.dot
+    ./hyprland.nix
     ./pipewire.nix
 
     (modulesPath + "/installer/scan/not-detected.nix")

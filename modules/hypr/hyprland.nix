@@ -63,6 +63,8 @@ in
               touchpad.natural_scroll = false;
               sensitivity = 0;
               accel_profile = "flat";
+              # 2 = mru
+              focus_on_close = 2;
             };
 
             general = {
