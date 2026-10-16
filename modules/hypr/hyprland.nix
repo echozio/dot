@@ -9,8 +9,19 @@
 let
   inherit (lib.generators) mkLuaInline;
   key = k: mkLuaInline ''mod .. " + ${k}"'';
-  bind = keys: dispatcher: { _args = [ keys (mkLuaInline dispatcher) ]; };
-  bindWith = flags: keys: dispatcher: { _args = [ keys (mkLuaInline dispatcher) flags ]; };
+  bind = keys: dispatcher: {
+    _args = [
+      keys
+      (mkLuaInline dispatcher)
+    ];
+  };
+  bindWith = flags: keys: dispatcher: {
+    _args = [
+      keys
+      (mkLuaInline dispatcher)
+      flags
+    ];
+  };
 in
 {
   programs.hyprland = {
@@ -18,6 +29,10 @@ in
     xwayland.enable = true;
     withUWSM = true;
   };
+
+  systemd.user.services = lib.genAttrs [ "wayland-wm@" "wayland-session-bindpid@" ] (_: {
+    environment.TZDIR = "/etc/zoneinfo";
+  });
 
   home-manager.users.${user} =
     { config, ... }:
@@ -152,10 +167,12 @@ in
           };
 
           curve = [
+            /*nixfmt:disable*/
             { _args = [ "linear" { type = "bezier"; points = [ [ 0 0 ] [ 1 1 ] ]; } ]; }
             { _args = [ "easeOut" { type = "bezier"; points = [ [ 0.42 0 ] [ 0.58 1 ] ]; } ]; }
             { _args = [ "easeInOut" { type = "bezier"; points = [ [ 0 0 ] [ 0.58 1 ] ]; } ]; }
             { _args = [ "easeIn" { type = "bezier"; points = [ [ 0.42 0 ] [ 1 1 ] ]; } ]; }
+            /*nixfmt:enable*/
           ];
 
           animation = [
@@ -298,7 +315,7 @@ in
               workspace = "3 silent";
             }
             {
-              match.class = "^org.signal.Signal$";
+              match.class = "^signal$";
               workspace = "3 silent";
             }
             {
