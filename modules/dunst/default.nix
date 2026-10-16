@@ -36,6 +36,7 @@
           alignment = "center";
           width = 500;
           height = "(42, 180)";
+          notification_limit = 3;
           origin = "top-center";
           offset = "(0, 10)";
           corner_radius = 10;
