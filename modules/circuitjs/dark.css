@@ -172,3 +172,8 @@ html.dark .gwt-Label-2off {
 html.dark iframe {
   visibility: hidden;
 }
+
+/* Applies in both themes: the canvas takes focus for keyboard shortcuts, and the focus ring frames the whole circuit. */
+canvas:focus {
+  outline: none;
+}
