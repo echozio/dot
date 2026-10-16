@@ -1,0 +1,111 @@
+From 89c2e6c4e4f9913699179ad338f4c5570138af25 Mon Sep 17 00:00:00 2001
+From: Chris <chris@echoz.io>
+Date: Tue, 13 Oct 2026 15:33:54 +0000
+Subject: [PATCH] imap: re-run source-cred-cmd on reconnect
+
+source-cred-cmd is executed once while parsing accounts.conf and its
+output is baked into the source URL. When the command hands out
+short-lived credentials (e.g. OAuth access tokens from oama), every
+reconnect after expiry authenticates with the stale token and fails
+until aerc is restarted.
+
+Keep the unexpanded source around and have the imap worker run the
+credential command again whenever it reconnects.
+---
+ config/accounts.go       |  2 ++
+ worker/imap/configure.go |  2 ++
+ worker/imap/connect.go   | 16 ++++++++++++++++
+ worker/imap/worker.go    |  3 +++
+ 4 files changed, 23 insertions(+)
+
+diff --git a/config/accounts.go b/config/accounts.go
+index 1468c0b..8454cb9 100644
+--- a/config/accounts.go
++++ b/config/accounts.go
+@@ -97,6 +97,7 @@ type AccountConfig struct {
+ 	Backend string
+ 	// backend specific
+ 	Params map[string]string
++	SourceRemote RemoteConfig
+ 
+ 	Archive           string          `ini:"archive" default:"Archive"`
+ 	CopyTo            []string        `ini:"copy-to" delim:","`
+@@ -367,6 +368,7 @@ func (a *AccountConfig) ParseSource(sec *ini.Section, key *ini.Key) (string, err
+ 	if k, err := sec.GetKey("source-cred-cmd"); err == nil {
+ 		remote.PasswordCmd = k.String()
+ 	}
++	a.SourceRemote = remote
+ 	return remote.ConnectionString()
+ }
+ 
+diff --git a/worker/imap/configure.go b/worker/imap/configure.go
+index 007539c..c189ccf 100644
+--- a/worker/imap/configure.go
++++ b/worker/imap/configure.go
+@@ -24,6 +24,8 @@ func (w *IMAPWorker) handleConfigure(msg *types.Configure) error {
+ 
+ 	w.config.provider = w.providerFromURL(u.Host)
+ 	w.config.url = u
++	w.config.sourceRemote = msg.Config.SourceRemote
++	w.config.urlUsed = false
+ 
+ 	w.config.folders = msg.Config.Folders
+ 	w.config.headers = msg.Config.Headers
+diff --git a/worker/imap/connect.go b/worker/imap/connect.go
+index 8c50098..0ee1f12 100644
+--- a/worker/imap/connect.go
++++ b/worker/imap/connect.go
+@@ -4,6 +4,7 @@ import (
+ 	"crypto/tls"
+ 	"fmt"
+ 	"net"
++	"net/url"
+ 	"os"
+ 	"strings"
+ 	"time"
+@@ -25,6 +26,21 @@ func (w *IMAPWorker) connect() (*client.Client, error) {
+ 		c    *client.Client
+ 	)
+ 
++	// Credentials from source-cred-cmd may be short-lived (e.g. OAuth
++	// access tokens), so fetch fresh ones on every reconnect.
++	if w.config.urlUsed && w.config.sourceRemote.PasswordCmd != "" {
++		source, err := w.config.sourceRemote.ConnectionString()
++		if err != nil {
++			return nil, err
++		}
++		u, err := url.Parse(source)
++		if err != nil {
++			return nil, err
++		}
++		w.config.url = u
++	}
++	w.config.urlUsed = true
++
+ 	protocol, mech, err := auth.ParseScheme(w.config.url)
+ 	if err != nil {
+ 		return nil, err
+diff --git a/worker/imap/worker.go b/worker/imap/worker.go
+index 3334429..6b09289 100644
+--- a/worker/imap/worker.go
++++ b/worker/imap/worker.go
+@@ -12,6 +12,7 @@ import (
+ 	"github.com/pkg/errors"
+ 	"github.com/syndtr/goleveldb/leveldb"
+ 
++	"git.sr.ht/~rjarry/aerc/config"
+ 	"git.sr.ht/~rjarry/aerc/lib/log"
+ 	"git.sr.ht/~rjarry/aerc/models"
+ 	"git.sr.ht/~rjarry/aerc/worker/handlers"
+@@ -54,6 +55,8 @@ type imapClient struct {
+ type imapConfig struct {
+ 	name           string
+ 	url            *url.URL
++	sourceRemote   config.RemoteConfig
++	urlUsed        bool
+ 	provider       imapProvider
+ 	headers        []string
+ 	headersExclude []string
+-- 
+2.55.0
+

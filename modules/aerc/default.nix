@@ -65,6 +65,9 @@
               ./postaction-non-blocking.patch
               # https://todo.sr.ht/~rjarry/aerc/355
               ./reload-sigusr1.patch
+              # source-cred-cmd only runs at startup, so short-lived oama
+              # tokens break every reconnect after they expire.
+              ./refresh-source-cred.patch
             ];
           });
           extraConfig = {
