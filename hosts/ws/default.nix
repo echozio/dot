@@ -90,6 +90,21 @@
     };
   };
 
+  # Pinned past 20260916 for the GC 11.0.0 firmware revert that fixes GPU hangs
+  # in games (drm/amd#5711). Drop once nixpkgs ships a later release.
+  nixpkgs.overlays = [
+    (final: prev: {
+      linux-firmware = prev.linux-firmware.overrideAttrs {
+        version = "20260916-unstable-2026-10-14";
+        src = final.fetchgit {
+          url = "https://gitlab.com/kernel-firmware/linux-firmware.git";
+          rev = "d5455717ead0affc6116809d8c6e71f95c63e8e1";
+          hash = "sha256-17uYpedifCzjsLyVSLKVtyNfB+QWQgDqccXZlAoV0sE=";
+        };
+      };
+    })
+  ];
+
   hardware = {
     enableAllFirmware = true;
     cpu.amd.updateMicrocode = true;
