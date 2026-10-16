@@ -85,6 +85,9 @@
     ];
   };
 
+  # Fallback flatpak reads when it cannot derive the zone from /etc/localtime.
+  environment.etc.timezone.text = config.time.timeZone;
+
   environment.persistence."/fix" = {
     directories = [ "/var/lib/flatpak" ];
     users.${user}.directories = [ ".var/app" ];
