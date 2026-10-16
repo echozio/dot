@@ -1,10 +1,14 @@
 {
   lib,
+  pkgs,
 
   user,
   email,
   ...
 }:
+let
+  riff = lib.getExe pkgs.riffdiff;
+in
 {
   home-manager.users.${user}.programs.git = {
     enable = true;
@@ -17,6 +21,12 @@
       push.autoSetupRemote = true;
       pull.rebase = true;
       init.defaultBranch = "main";
+      pager = {
+        diff = riff;
+        show = riff;
+        log = riff;
+      };
+      interactive.diffFilter = "${riff} --color=on";
       merge.tool = "nvimdiff";
       mergetool = {
         prompt = false;
