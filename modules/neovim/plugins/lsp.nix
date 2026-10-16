@@ -36,15 +36,7 @@
 
       typescript-language-server = {
         cmd = [
-          # Drop once nixpkgs ac7b1aaed0 reaches nixos-unstable.
-          # (lib.getExe pkgs.typescript-language-server)
-          (lib.getExe (
-            pkgs.typescript-language-server.overrideAttrs (old: {
-              pnpmDeps = old.pnpmDeps.overrideAttrs {
-                outputHash = "sha256-xR/EF60lVBsITKgH7wCM2wHM46PFQevD51KfCENSUH4=";
-              };
-            })
-          ))
+          (lib.getExe pkgs.typescript-language-server)
           "--stdio"
         ];
         filetypes = [

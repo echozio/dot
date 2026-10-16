@@ -14,8 +14,8 @@ let
     clock_format = "/user@/host %X %z @%s"
   '';
 
-  wrapper = pkgs.writeShellScript "btop" ''
-    ${lib.getExe package}\
+  wrapper = pkgs.writeShellScriptBin "btop" ''
+    exec /run/wrappers/bin/.btop-wrapped \
       --themes-dir ${package}/share/btop/themes \
       --config ${config} \
       "$@"
@@ -23,12 +23,13 @@ let
 in
 {
   environment.systemPackages = [
+    wrapper
   ];
 
-  security.wrappers.btop = {
+  security.wrappers.".btop-wrapped" = {
     owner = "root";
     group = "root";
-    source = wrapper;
+    source = lib.getExe package;
     capabilities = "cap_perfmon+ep cap_dac_read_search=+ep";
   };
 }
