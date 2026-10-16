@@ -9,12 +9,14 @@
     nixpak.url = "github:nixpak/nixpak";
     nix-flatpak.url = "github:gmodena/nix-flatpak/v0.7.0";
     imsh-clients.url = "github:echozio/imsh-clients";
+    tuicr.url = "github:agavra/tuicr/v0.27.0";
 
     disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     nixpak.inputs.nixpkgs.follows = "nixpkgs";
     imsh-clients.inputs.nixpkgs.follows = "nixpkgs";
+    tuicr.inputs.nixpkgs.follows = "nixpkgs";
 
     sec.url = "github:echozio/sec";
   };
