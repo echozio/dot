@@ -43,15 +43,18 @@
                   ''
                 );
                 before_sleep_cmd = "loginctl lock-session";
-                after_sleep_cmd = "hyprctl dispatch dpms on";
+                after_sleep_cmd = "hyprctl dispatch 'hl.dsp.dpms({ action = \"on\" })'";
               };
 
               listener = [
                 {
                   timeout = 1;
+                  # hypridle 0.1.8 skips on-resume for rules whose on-timeout never ran.
+                  on-timeout = "true";
+                  ignore_inhibit = true;
                   on-resume = builtins.toString (
                     pkgs.writeShellScript "dpms-on" ''
-                      hyprctl dispatch dpms on
+                      hyprctl dispatch 'hl.dsp.dpms({ action = "on" })'
                     ''
                   );
                 }
@@ -59,7 +62,7 @@
                   timeout = 30;
                   on-timeout = builtins.toString (
                     pkgs.writeShellScript "manual-lock-dpms-off" ''
-                      pidof hyprlock && hyprctl dispatch dpms off
+                      pidof hyprlock && hyprctl dispatch 'hl.dsp.dpms({ action = "off" })'
                     ''
                   );
                 }
@@ -75,7 +78,7 @@
                   timeout = 330;
                   on-timeout = builtins.toString (
                     pkgs.writeShellScript "auto-lock-dpms-off" ''
-                      hyprctl dispatch dpms off
+                      hyprctl dispatch 'hl.dsp.dpms({ action = "off" })'
                     ''
                   );
                 }
@@ -87,6 +90,8 @@
                 [
                   {
                     timeout = 1;
+                    # hypridle 0.1.8 skips on-resume for rules whose on-timeout never ran.
+                    on-timeout = "true";
                     on-resume = builtins.toString (
                       pkgs.writeShellScript "undim" ''
                         brightnessctl -d ${dev} -r
