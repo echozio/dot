@@ -1,0 +1,174 @@
+/* Applies while the circuit background is black; `html.dark` is toggled from UIManager's paint loop. */
+html.dark {
+  color-scheme: dark;
+
+  --cj-bg: #111;
+  --cj-surface: #1a1a1a;
+  --cj-hover: #2a2a2a;
+  --cj-border: #333;
+  --cj-border-strong: #555;
+  --cj-text: #ddd;
+  --cj-muted: #777;
+  --cj-disabled: #555;
+  --cj-accent: #4da3ff;
+  --cj-active-bg: #10283f;
+  --cj-toolbar-bg: #0a0a0a;
+  --cj-overlay-bg: rgba(16, 16, 16, 0.85);
+}
+
+html.dark body {
+  background: #000;
+  color: var(--cj-text);
+}
+
+html.dark a,
+html.dark a:visited,
+html.dark a:hover {
+  color: var(--cj-accent);
+}
+
+/* Inputs */
+
+html.dark select,
+html.dark input,
+html.dark textarea {
+  background: #000;
+  color: var(--cj-text);
+  border: 1px solid var(--cj-border-strong);
+}
+
+html.dark input:focus,
+html.dark select:focus,
+html.dark textarea:focus {
+  outline: 1px solid var(--cj-accent);
+}
+
+html.dark .gwt-Button,
+html.dark .topButton {
+  background: var(--cj-surface);
+  color: var(--cj-text);
+  border: 1px solid var(--cj-border-strong);
+}
+
+html.dark .gwt-Button:hover,
+html.dark .topButton:hover {
+  border-color: #888;
+}
+
+html.dark .gwt-Button:active {
+  background: var(--cj-hover);
+}
+
+html.dark .gwt-Button[disabled],
+html.dark .gwt-Button[disabled]:hover {
+  color: var(--cj-disabled);
+  border-color: var(--cj-border);
+}
+
+html.dark .gwt-Button.chbut-white {
+  background: #fff;
+  color: #000;
+}
+
+html.dark .gwt-Button.chbut-black {
+  background: #000;
+  color: #fff;
+}
+
+html.dark .gwt-CheckBox-disabled,
+html.dark .gwt-RadioButton-disabled,
+html.dark .disabled {
+  color: var(--cj-disabled);
+}
+
+/* Menus */
+
+html.dark .gwt-MenuBar-horizontal {
+  background: var(--cj-bg);
+  border-color: transparent;
+}
+
+html.dark .gwt-MenuBar-horizontal .gwt-MenuItem,
+html.dark .gwt-MenuBar-vertical .gwt-MenuItem {
+  color: var(--cj-text);
+}
+
+html.dark .gwt-MenuBar-horizontal .gwt-MenuItemSeparator,
+html.dark .gwt-MenuBar-horizontal .gwt-MenuItemSeparator .menuSeparatorInner {
+  background: var(--cj-bg);
+  border-color: var(--cj-border);
+}
+
+html.dark .gwt-MenuBar-vertical {
+  background: var(--cj-bg);
+}
+
+html.dark .gwt-MenuBar .gwt-MenuItem-selected,
+html.dark .gwt-MenuBar-vertical .subMenuIcon-selected {
+  background: var(--cj-hover);
+}
+
+html.dark .gwt-MenuBar .gwt-MenuItem-disabled {
+  color: var(--cj-disabled);
+}
+
+html.dark .gwt-MenuBar-vertical .gwt-MenuItemSeparator .menuSeparatorInner {
+  border-top-color: var(--cj-border);
+}
+
+html.dark .gwt-MenuBarPopup {
+  border: 1px solid var(--cj-border);
+}
+
+/* The Clean theme draws popup and dialog frames with light background images. */
+html.dark .gwt-MenuBarPopup td,
+html.dark .gwt-DialogBox td[class^="dialog"],
+html.dark .gwt-DecoratedPopupPanel td[class^="popup"] {
+  background: var(--cj-bg);
+}
+
+/* Popups and dialogs */
+
+html.dark .gwt-PopupPanel {
+  background: var(--cj-bg);
+  border-color: var(--cj-border);
+}
+
+html.dark .gwt-DialogBox {
+  border: 1px solid var(--cj-border);
+}
+
+html.dark .gwt-DialogBox .Caption {
+  background: var(--cj-surface);
+  color: var(--cj-text);
+  border-top-color: var(--cj-border);
+  border-bottom-color: var(--cj-border);
+}
+
+html.dark .gwt-DisclosurePanel .header td {
+  color: var(--cj-text);
+}
+
+html.dark .gwt-DisclosurePanel .content {
+  border-left-color: var(--cj-border);
+}
+
+/* Sidebar labels */
+
+html.dark .gwt-Label-selected {
+  border-top-color: var(--cj-text);
+  border-bottom-color: var(--cj-text);
+}
+
+html.dark .gwt-Label-1off {
+  color: var(--cj-muted);
+}
+
+html.dark .gwt-Label-2off {
+  color: var(--cj-disabled);
+}
+
+/* An empty placeholder page; Chromium backs a light-scheme iframe with opaque white. */
+html.dark iframe {
+  visibility: hidden;
+}

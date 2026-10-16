@@ -1,0 +1,194 @@
+diff --git a/src/com/lushprojects/circuitjs1/client/Scrollbar.java b/src/com/lushprojects/circuitjs1/client/Scrollbar.java
+index 59b169d3..8bf0d9a7 100644
+--- a/src/com/lushprojects/circuitjs1/client/Scrollbar.java
++++ b/src/com/lushprojects/circuitjs1/client/Scrollbar.java
+@@ -73,6 +73,7 @@ public class Scrollbar extends  Composite implements
+ 	Command command=null;
+ 	CircuitElm attachedElm=null;
+ 	int VERTICALPANELWIDTH;
++	static boolean dark;
+ 
+ 	public Scrollbar(int orientation, int value, int visible, int minimum, int maximum) {
+ 		VERTICALPANELWIDTH = UIManager.VERTICALPANELWIDTH;
+@@ -119,10 +120,12 @@ public class Scrollbar extends  Composite implements
+ 	}
+ 	
+ 	void draw() {
++		String fg = dark ? "#cccccc" : "#000000";
++		g.setFillStyle(dark ? "#000000" : "#ffffff");
+ 		if (enabled)
+-			g.setStrokeStyle("#000000");
++			g.setStrokeStyle(fg);
+ 		else
+-			g.setStrokeStyle("lightgrey");
++			g.setStrokeStyle(dark ? "#444444" : "lightgrey");
+ 		g.setLineWidth(1.0);
+ 		g.fillRect(0,0,VERTICALPANELWIDTH,SCROLLHEIGHT);
+ 		g.beginPath();
+@@ -150,7 +153,7 @@ public class Scrollbar extends  Composite implements
+ 			g.moveTo(HMARGIN+SCROLLHEIGHT+BARMARGIN, SCROLLHEIGHT/2);
+ 			g.lineTo(p, SCROLLHEIGHT/2);
+ 			g.stroke();
+-			g.setStrokeStyle("#000000");
++			g.setStrokeStyle(fg);
+ //			g.beginPath();
+ //			g.moveTo(p, 0);
+ //			g.lineTo(p, SCROLLHEIGHT);
+diff --git a/src/com/lushprojects/circuitjs1/client/SubcircuitBar.java b/src/com/lushprojects/circuitjs1/client/SubcircuitBar.java
+index 2222ebdb..225c4080 100644
+--- a/src/com/lushprojects/circuitjs1/client/SubcircuitBar.java
++++ b/src/com/lushprojects/circuitjs1/client/SubcircuitBar.java
+@@ -20,13 +20,13 @@ public class SubcircuitBar extends FlowPanel {
+ 
+     public SubcircuitBar() {
+ 	Style style = getElement().getStyle();
+-	style.setProperty("background", "rgba(248,248,248,0.85)");
++	style.setProperty("background", "var(--cj-overlay-bg, rgba(248,248,248,0.85))");
+ 	style.setPosition(Style.Position.ABSOLUTE);
+ 	// no z-index so menu popups (added later in DOM) stack above us
+ 	style.setPadding(4, Style.Unit.PX);
+ 	style.setPaddingLeft(8, Style.Unit.PX);
+ 	style.setPaddingRight(8, Style.Unit.PX);
+-	style.setProperty("borderBottom", "1px solid #ccc");
++	style.setProperty("borderBottom", "1px solid var(--cj-border, #ccc)");
+ 	style.setProperty("pointerEvents", "auto");
+ 	style.setProperty("boxSizing", "border-box");
+ 	style.setProperty("whiteSpace", "nowrap");
+@@ -99,7 +99,7 @@ public class SubcircuitBar extends FlowPanel {
+     private void styleLabel(InlineLabel label) {
+ 	Style style = label.getElement().getStyle();
+ 	style.setFontSize(14, Style.Unit.PX);
+-	style.setColor("#333");
++	style.setColor("var(--cj-text, #333)");
+ 	style.setPaddingRight(10, Style.Unit.PX);
+     }
+ 
+diff --git a/src/com/lushprojects/circuitjs1/client/Toolbar.java b/src/com/lushprojects/circuitjs1/client/Toolbar.java
+index ce18865f..2618d054 100644
+--- a/src/com/lushprojects/circuitjs1/client/Toolbar.java
++++ b/src/com/lushprojects/circuitjs1/client/Toolbar.java
+@@ -29,10 +29,10 @@ public class Toolbar extends FlowPanel {
+         // Set the overall style of the toolbar
+ 	Style style = getElement().getStyle();
+         style.setPadding(2, Style.Unit.PX);
+-        style.setBackgroundColor("#f8f8f8");
++        style.setBackgroundColor("var(--cj-toolbar-bg, #f8f8f8)");
+         style.setBorderWidth(1, Style.Unit.PX);
+         style.setBorderStyle(Style.BorderStyle.SOLID);
+-        style.setBorderColor("#ccc");
++        style.setBorderColor("var(--cj-border, #ccc)");
+         style.setDisplay(Style.Display.FLEX);
+ 	style.setProperty("alignItems", "center");
+ 
+@@ -104,7 +104,7 @@ public class Toolbar extends FlowPanel {
+         // Style the icon button
+ 	Style style = iconLabel.getElement().getStyle();
+         style.setFontSize(24, Style.Unit.PX);
+-        style.setColor("#333");
++        style.setColor("var(--cj-text, #333)");
+         style.setPadding(1, Style.Unit.PX);
+         style.setMarginRight(5, Style.Unit.PX);
+         style.setCursor(Style.Cursor.POINTER);
+@@ -113,15 +113,15 @@ public class Toolbar extends FlowPanel {
+ 	style.setProperty("touchAction", "none");
+ 
+         // Add hover effect for the button
+-        iconLabel.addMouseOverHandler(event -> iconLabel.getElement().getStyle().setColor("#007bff"));
+-        iconLabel.addMouseOutHandler(event -> iconLabel.getElement().getStyle().setColor("#333"));
++        iconLabel.addMouseOverHandler(event -> iconLabel.getElement().getStyle().setColor("var(--cj-accent, #007bff)"));
++        iconLabel.addMouseOutHandler(event -> iconLabel.getElement().getStyle().setColor("var(--cj-text, #333)"));
+ 
+         // Add a click handler to perform the action
+         iconLabel.addClickHandler(new ClickHandler() {
+             @Override
+             public void onClick(ClickEvent event) {
+ 		// un-highlight
+-        	iconLabel.getElement().getStyle().setColor("#333");
++        	iconLabel.getElement().getStyle().setColor("var(--cj-text, #333)");
+ 		if (iconLabel == activeButton) {
+ 		    new MyCommand("main", "Select").execute();
+ 		    activeButton = null;
+@@ -224,9 +224,9 @@ public class Toolbar extends FlowPanel {
+ 	Style paletteStyle = paletteContainer.getElement().getStyle();
+ 	paletteStyle.setPosition(Style.Position.ABSOLUTE);
+ 	paletteStyle.setZIndex(1000); // High z-index to appear on top
+-	paletteStyle.setBackgroundColor("#ffffff");
++	paletteStyle.setBackgroundColor("var(--cj-bg, #ffffff)");
+ 	paletteStyle.setBorderWidth(1, Style.Unit.PX);
+-	paletteStyle.setBorderColor("#ccc");
++	paletteStyle.setBorderColor("var(--cj-border, #ccc)");
+ 	paletteStyle.setBorderStyle(Style.BorderStyle.SOLID);
+ 	paletteStyle.setPadding(5, Style.Unit.PX);
+ 
+@@ -240,7 +240,7 @@ public class Toolbar extends FlowPanel {
+ 
+ 	    // Style the variant button
+ 	    Style variantStyle = variantButton.getElement().getStyle();
+-	    variantStyle.setColor("#333");
++	    variantStyle.setColor("var(--cj-text, #333)");
+ 	    //variantStyle.setPadding(5, Style.Unit.PX);
+ 	    variantStyle.setCursor(Style.Cursor.POINTER);
+ 	    variantStyle.setProperty("touchAction", "none");
+@@ -312,7 +312,7 @@ public class Toolbar extends FlowPanel {
+     private void styleModeLabel(Label label) {
+ 	Style style = label.getElement().getStyle();
+         style.setFontSize(16, Style.Unit.PX);
+-        style.setColor("#333");
++        style.setColor("var(--cj-text, #333)");
+         style.setPaddingRight(10, Style.Unit.PX);
+ 	style.setProperty("whiteSpace", "nowrap");
+     }
+@@ -320,15 +320,15 @@ public class Toolbar extends FlowPanel {
+     public void highlightButton(String key) {
+         // Deactivate the currently active button
+         if (activeButton != null) {
+-            activeButton.getElement().getStyle().setColor("#333"); // Reset color
++            activeButton.getElement().getStyle().setColor("var(--cj-text, #333)"); // Reset color
+             activeButton.getElement().getStyle().setBackgroundColor(null);
+         }
+ 
+         // Activate the new button
+         Label newActiveButton = highlightableButtons.get(key);
+         if (newActiveButton != null) {
+-            newActiveButton.getElement().getStyle().setColor("#007bff"); // Active color
+-            newActiveButton.getElement().getStyle().setBackgroundColor("#e6f7ff");
++            newActiveButton.getElement().getStyle().setColor("var(--cj-accent, #007bff)"); // Active color
++            newActiveButton.getElement().getStyle().setBackgroundColor("var(--cj-active-bg, #e6f7ff)");
+             activeButton = newActiveButton;
+         }
+     }
+diff --git a/src/com/lushprojects/circuitjs1/client/UIManager.java b/src/com/lushprojects/circuitjs1/client/UIManager.java
+index 0ecfb0d2..26497a4f 100644
+--- a/src/com/lushprojects/circuitjs1/client/UIManager.java
++++ b/src/com/lushprojects/circuitjs1/client/UIManager.java
+@@ -608,6 +608,18 @@ public class UIManager {
+             g.setColor(Color.black);
+             cv.getElement().getStyle().setBackgroundColor("#000");
+         }
++        boolean dark = !menus.printableCheckItem.getState();
++        if (dark != Scrollbar.dark) {
++            Scrollbar.dark = dark;
++            com.google.gwt.dom.client.Element root = com.google.gwt.dom.client.Document.get().getDocumentElement();
++            if (dark)
++                root.addClassName("dark");
++            else
++                root.removeClassName("dark");
++            for (int i = 0; i < verticalPanel.getWidgetCount(); i++)
++                if (verticalPanel.getWidget(i) instanceof Scrollbar)
++                    ((Scrollbar) verticalPanel.getWidget(i)).draw();
++        }
+ 
+         g.fillRect(0, 0, canvasWidth, canvasHeight);
+ 
+diff --git a/war/circuitjs.html b/war/circuitjs.html
+index 59bb5edf..360c2485 100644
+--- a/war/circuitjs.html
++++ b/war/circuitjs.html
+@@ -147,6 +147,7 @@
+ }
+ 
+ </style>
++<link rel="stylesheet" href="dark.css">
+ 
+ <link rel="stylesheet" href="font/fontello.css">
+ 
