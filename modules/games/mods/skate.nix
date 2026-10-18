@@ -4,17 +4,17 @@
   writeShellApplication,
 }:
 let
-  version = "2.0.8";
+  version = "2.1.0";
   release = "https://github.com/Dingo-Shenanigans/ReSkate/releases/download/v${version}";
 
   reskate = linkFarm "reskate-${version}" {
     "ReSkate.dll" = fetchurl {
       url = "${release}/ReSkate.dll";
-      hash = "sha256-7yN+E7LFreTiSnu914JGgMt5/WvfjRwTNAoNN13dL9o=";
+      hash = "sha256-MQ3vBGg2dy7w3qks/t4Q5ST0t/4wJVtHDoXy3Lq4xSA=";
     };
     "ReSkateLauncher.exe" = fetchurl {
       url = "${release}/ReSkateLauncher.exe";
-      hash = "sha256-n8dDkh89UjWv52hrftXExzeHUjcKQpN8UPl6Dg3RcFE=";
+      hash = "sha256-9d3VNyAEf4iBt2jb47YikrP+XAzdsck4HD5UbtGc2E4=";
     };
   };
 in
