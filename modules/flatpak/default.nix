@@ -59,12 +59,16 @@
           _JAVA_AWT_WM_NONREPARENTING = "1";
         };
 
-        # Revokes grants from the Flathub manifest so files go through the portal.
-        "com.discordapp.Discord".Context.filesystems = [
-          "!xdg-download"
-          "!xdg-pictures"
-          "!xdg-videos"
-        ];
+        "com.discordapp.Discord" = {
+          # Revokes grants from the Flathub manifest so files go through the portal.
+          Context.filesystems = [
+            "!xdg-download"
+            "!xdg-pictures"
+            "!xdg-videos"
+          ];
+
+          Environment.PULSE_LATENCY_MSEC = "60";
+        };
 
         "com.mojang.Minecraft"."Session Bus Policy" = {
           "org.freedesktop.secrets" = "talk";
