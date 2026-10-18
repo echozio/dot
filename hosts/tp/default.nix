@@ -96,6 +96,24 @@
     ];
   };
 
+  systemd.services.modem-reset = {
+    description = "Reset Quectel modem after resume";
+    after = [
+      "suspend.target"
+      "hibernate.target"
+      "suspend-then-hibernate.target"
+    ];
+    wantedBy = [
+      "suspend.target"
+      "hibernate.target"
+      "suspend-then-hibernate.target"
+    ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.usbutils}/bin/usbreset 2c7c:030a";
+    };
+  };
+
   boot = {
     initrd.availableKernelModules = [
       "xhci_pci"
